@@ -1,10 +1,16 @@
 /* 
 Combined3D.pro
-Authors: Brecht Lenaerts and Jeroen Samoey
+Authors: 
+	Brecht Lenaerts, Jeroen Samoey 2021
+	Zeno Viskens, Maurice Vercammen 2023
+	Teodor Vakarelsky, Dimiter Prodanov 2024
 
 Calculations.
 */
 Include "Combined3D_common.pro";
+
+
+
 
 DefineConstant[NL_tol_abs = 1e-3, // relative tolerance on residual for nonlinear iterations
   NL_tol_rel = 1e-3, // relative tolerance on residual for nonlinear iterations
@@ -25,7 +31,6 @@ left_surface_t = {2012};
 right_surface_t = {2013};
 
 Group {
-
 
 	Beam = Region[ volume_i ];
 	Block = Region[ volume_t ];
@@ -58,7 +63,7 @@ Function {
 		Timefunc~{i}[] = Sin[2*Pi*RespFreq*i*DeltaTime];
 	EndFor  */
 	For i In {1:TimeSteps}
-		Timefunc~{i}[] = 1/Pi*Asin[Sin[Pi*RespFreq*i*DeltaTime]];
+		Timefunc~{i}[] = 1/ Pi* Asin[ Sin [Pi*RespFreq*i*DeltaTime]];
 	EndFor 
 	
 
@@ -87,15 +92,15 @@ Function {
 //Defining creepfunctions (Betten, J. (2008). Creep Mechanics. Berlin Heidelberg: Springer-Verlag.)
 	If (Order_visco == 1)
 		For i In{1:TimeSteps}
-			K~{i} [] = ($Time>=i*DeltaTime)?(Shear_0*(1/Shear_inf + ((Shear_inf-Shear_0)/(Shear_inf*Shear_0))*Exp[-Shear_inf*Decay_rate_1*($Time-i*DeltaTime)/(Shear_0)])):0;
+			K~{i} [] = ( $Time >=i*DeltaTime)?(Shear_0*(1/Shear_inf + ((Shear_inf-Shear_0)/(Shear_inf*Shear_0))* Exp[-Shear_inf*Decay_rate_1*( $Time-i*DeltaTime)/(Shear_0)])):0;
 		EndFor
 		
 	ElseIf (Order_visco == 2)
 		For i In{1:TimeSteps}
-			K~{i} [] = ($Time>=i*DeltaTime)?((Exp[-((B1+B2)*Ginf+B1*G2+B2*G1)*($Time-i*DeltaTime)/(2*(Ginf+G2+G1))]*(((G2+G1)*((B1+B2)*Ginf+B1*G2+B2*G1)/Ginf-2*(B1*G2+B2*G1)*(Ginf+G1+G2)/Ginf)
-			*Sinh[Sqrt[(B2^2-2*B1*B2+B1^2)*Ginf^2+((2*B1^2-2*B1*B2)*G2+(2*B2^2-2*B1*B2)*G1)*Ginf+B1^2*G2^2+2*B1*B2*G1*G2+B2^2*G1^2]/(2*(Ginf+G1+G2))*($Time-i*DeltaTime)]/Sqrt[(B2^2-2*B1*B2+B1^2)*
-			Ginf^2+((2*B1^2-2*B1*B2)*G2+(2*B2^2-2*B1*B2)*G1)*Ginf+B1^2*G2^2+2*B1*B2*G1*G2+B2^2*G1^2]-(G2+G1)*Cosh[Sqrt[(B2^2-2*B1*B2+B1^2)*Ginf^2+((2*B1^2-2*B1*B2)*G2+(2*B2^2-2*B1*B2)*G1)*Ginf+
-			B1^2*G2^2+2*B1*B2*G1*G2+B2^2*G1^2]/(2*(Ginf+G1+G2))*($Time-i*DeltaTime)]/Ginf))/(Ginf+G1+G2)+1/Ginf):0;
+			K~{i} [] = ( $Time >=i*DeltaTime)?(( Exp[-((B1+B2)*Ginf+B1*G2+B2*G1)*( $Time-i*DeltaTime)/(2*(Ginf+G2+G1))]*(((G2+G1)*((B1+B2)*Ginf+B1*G2+B2*G1)/Ginf-2*(B1*G2+B2*G1)*(Ginf+G1+G2)/Ginf)
+			* Sinh[Sqrt[(B2^2-2*B1*B2+B1^2)*Ginf^2+((2*B1^2-2*B1*B2)*G2+(2*B2^2-2*B1*B2)*G1)*Ginf+B1^2*G2^2+2*B1*B2*G1*G2+B2^2*G1^2]/(2*(Ginf+G1+G2))*( $Time-i*DeltaTime)]/ Sqrt[(B2^2-2*B1*B2+B1^2)*
+			Ginf^2+((2*B1^2-2*B1*B2)*G2+(2*B2^2-2*B1*B2)*G1)*Ginf+B1^2*G2^2+2*B1*B2*G1*G2+B2^2*G1^2]-(G2+G1)* Cosh[Sqrt[(B2^2-2*B1*B2+B1^2)*Ginf^2+((2*B1^2-2*B1*B2)*G2+(2*B2^2-2*B1*B2)*G1)*Ginf+
+			B1^2*G2^2+2*B1*B2*G1*G2+B2^2*G1^2]/(2*(Ginf+G1+G2))*( $Time -i*DeltaTime)]/Ginf))/(Ginf+G1+G2)+1/Ginf):0;
 		EndFor
 	EndIf
 	
@@ -104,6 +109,28 @@ Function {
 		Func~{i}[] = Func~{i-1}[] + (Timefunc~{i}[]-Timefunc~{i-1}[])*K~{i}[];
 	EndFor
 }
+
+/* 
+	Hooke's law
+
+   The material law
+
+   sigma_ij = C_ijkl epsilon_ij
+
+   is represented in 2D by four 2x2 tensors C_ij[], i,j=1,2, depending on the Lamé
+   coefficients of the isotropic linear material,
+
+   lambda = E[]*nu[]/(1.+nu[])/(1.-2.*nu[])
+   mu = E[]/2./(1.+nu[])
+
+   as follows
+
+   EPC:  a[] = E/(1-nu^2)        b[] = mu     c[] = E nu/(1-nu^2)
+   EPD:  a[] = lambda + 2 mu     b[] = mu     c[] = lambda
+    3D:  a[] = lambda + 2 mu     b[] = mu     c[] = lambda
+
+   respectively for the 2D plane strain (EPD), 2D plane stress (EPC) and 3D cases.
+*/
 
 Function {
 	a[] = E[]*(1.-nu[])/(1.+nu[])/(1.-2.*nu[]);
@@ -129,7 +156,8 @@ Constraint {
 				{ Region Sur_Clamp_Mec ; Type Assign ; Value 0; }
 			}
 			Case {
-				{ Region Sur_Clamp_Mec2 ; Type Assign ; Value 0.0023*Z[]/(0.15); } //for frequency of 2 Hz
+				{ Region Sur_Clamp_Mec2 ; Type Assign ; Value 0.0023*Z[]/(0.15); }
+				// for frequency of 2 Hz
 			}
 			/* Case {
 				{ Region Sur_Clamp_Mec2 ; Type Assign ; Value 0.0019*Z[]/(0.15); } //for frequency of 1 Hz
@@ -217,12 +245,12 @@ FunctionSpace {
 }
 
 Jacobian {
-	{Name Vol;
+	{ Name Vol;
 		Case {
 			{Region All; Jacobian Vol;}
 		}
 	}
-	{Name Sur;
+	{ Name Sur;
 		Case {
 			{Region All; Jacobian Sur;}
 		}
@@ -230,7 +258,7 @@ Jacobian {
 }
 
 Integration {
-	{Name Gauss_v;
+	{ Name Gauss_v;
 		Case {
 			If (FE_Order == 1)
 			{ Type Gauss;
@@ -261,11 +289,11 @@ Integration {
 }
 
 Formulation {
-	{Name Elast_u; Type FemEquation;
-		Quantity{
-			{Name ux ; Type Local; NameOfSpace H_ux_Mec;}
-			{Name uy ; Type Local; NameOfSpace H_uy_Mec;}
-			{Name uz ; Type Local; NameOfSpace H_uz_Mec;}
+	{ Name Elast_u; Type FemEquation;
+		Quantity {
+			{ Name ux ; Type Local; NameOfSpace H_ux_Mec;}
+			{ Name uy ; Type Local; NameOfSpace H_uy_Mec;}
+			{ Name uz ; Type Local; NameOfSpace H_uz_Mec;}
 		}
 		Equation {
 			Integral{[-C_xx[] * Dof{d ux}, {d ux}]; In Vol_Mec; Jacobian Vol; Integration Gauss_v;}
@@ -296,8 +324,9 @@ Resolution {
 		Operation {
 			InitSolution[Sys_Mec];
 			TimeLoopTheta[TimeInit, TimeFinal, DeltaTime, 1.]{
-				Generate[Sys_Mec]; Solve[Sys_Mec];
-				If(NbrRegions[Vol_Mec])
+				Generate[Sys_Mec]; 
+				Solve[Sys_Mec];
+				If (NbrRegions[Vol_Mec])
 				Generate[Sys_Mec]; GetResidual[Sys_Mec, $res0];
 				Evaluate[ $res = $res0, $iter = 0 ];
 				Print[{$iter, $res, $res / $res0},
@@ -324,10 +353,10 @@ PostProcessing {
 			{Name uz; Value { Term{[1e3*{uz}*(Func~{TimeSteps}[])]; In Vol_Mec; Jacobian Vol;}}}
 			{Name u; Value { Term{[Vector[	1e3*{ux}*(Func~{TimeSteps}[]),1e3*{uy}*(Func~{TimeSteps}[]),1e3*{uz}*(Func~{TimeSteps}[])]]; In Vol_Mec; Jacobian Vol;}}}
 			*/
-			{Name ux; Value { Term{[1e3*{ux}/2+1e3*{ux}*(Func~{TimeSteps}[])]; In Vol_Mec; Jacobian Vol;}}}
-			{Name uy; Value { Term{[1e3*{uy}/2+1e3*{uy}*(Func~{TimeSteps}[])]; In Vol_Mec; Jacobian Vol;}}}
-			{Name uz; Value { Term{[1e3*{uz}/2+1e3*{uz}*(Func~{TimeSteps}[])]; In Vol_Mec; Jacobian Vol;}}}
-			{Name u; Value { Term{[Vector[	1e3*{ux}/2+1e3*{ux}*(Func~{TimeSteps}[]),1e3*{uy}/2+1e3*{uy}*(Func~{TimeSteps}[]),1e3*{uz}/2+1e3*{uz}*(Func~{TimeSteps}[])]]; In Vol_Mec; Jacobian Vol;}}}
+			{ Name ux; Value { Term{[1e3*{ux}/2+1e3*{ux}*(Func~{TimeSteps}[])]; In Vol_Mec; Jacobian Vol;}}}
+			{ Name uy; Value { Term{[1e3*{uy}/2+1e3*{uy}*(Func~{TimeSteps}[])]; In Vol_Mec; Jacobian Vol;}}}
+			{ Name uz; Value { Term{[1e3*{uz}/2+1e3*{uz}*(Func~{TimeSteps}[])]; In Vol_Mec; Jacobian Vol;}}}
+			{ Name u; Value { Term{[Vector[	1e3*{ux}/2+1e3*{ux}*(Func~{TimeSteps}[]),1e3*{uy}/2+1e3*{uy}*(Func~{TimeSteps}[]),1e3*{uz}/2+1e3*{uz}*(Func~{TimeSteps}[])]]; In Vol_Mec; Jacobian Vol;}}}
 		}
 	}
 }

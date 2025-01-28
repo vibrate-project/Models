@@ -1,7 +1,11 @@
 /* 
 Combined3D_common.pro
-Authors: Brecht Lenaerts and Jeroen Samoey
-
+based on the wrench2D model https://gitlab.onelab.info/doc/tutorials/-/blob/master/Elasticity/wrench2D.pro 
+Authors: 
+	Brecht Lenaerts, Jeroen Samoey 2021
+	Zeno Viskens, Maurice Vercammen 2023
+	Teodor Vakarelsky, Dimiter Prodanov 2024
+	
 Introduction of all variables (geometry, meshing and material coefficients).
 */
 

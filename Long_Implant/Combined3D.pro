@@ -1,6 +1,7 @@
 /* 
 Combined3D.pro
-Authors: Brecht Lenaerts and Jeroen Samoey
+ 	Teodor Vakarelsky, Dimiter Prodanov 2024
+
 
 Calculations.
 */

@@ -1,6 +1,6 @@
 /* 
 Combined3D_common.pro
-Authors: Brecht Lenaerts and Jeroen Samoey
+Authors: Teodor Vakarelsky, Dimiter Prodanov
 
 Introduction of all variables (geometry, meshing and material coefficients).
 */

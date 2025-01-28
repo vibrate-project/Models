@@ -1,8 +1,11 @@
 /*
 Combined3D.geo
-Authors: Brecht Lenaerts and Jeroen Samoey
+Authors: 
+	Brecht Lenaerts, Jeroen Samoey 2021
+	Zeno Viskens, Maurice Vercammen 2023
+	Teodor Vakarelsky, Dimiter Prodanov 2024
 
-Geography of tissue and implant.
+Geometry of tissue and implant.
 */
 
 Include "Combined3D_common.pro";
