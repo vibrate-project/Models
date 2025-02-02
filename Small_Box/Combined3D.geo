@@ -2,6 +2,7 @@
 Combined3D.geo
 Authors: 
 	Brecht Lenaerts, Jeroen Samoey 2021
+	Steffan Schwert 2022
 	Zeno Viskens, Maurice Vercammen 2023
 	Teodor Vakarelsky, Dimiter Prodanov 2024
 
