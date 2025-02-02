@@ -1,0 +1,461 @@
+
+/**
+Elliptic integral tools
+
+(c) 2024 Dimiter Prodanov
+*/
+
+/**
+patterns
+*
+matchdeclare([%a, %m],true);
+*/
+
+/*load("computel.lisp");*/
+
+matchdeclare([%x], atom, [%b, %m, %a, %n], true);
+
+defmatch ( elint1, %b/sqrt(%n+%m*sin(%a*%x)^2), %x);
+
+defmatch ( elint2, %b/sqrt(%n+%m*cos(2*%x)), %x);
+
+
+defmatch ( elint3, %b/ (%a-%n*jacobi_sn(%x, %m)^2), %x);
+
+
+
+matchdeclare([%ker, %rr], true);
+
+simp : false;
+
+defmatch (checklimits, %rr*'integrate (%ker, %x, %a, %b));
+defmatch (checklimits1, %rr*'integrate (%ker, %x ));
+
+simp:true;
+
+
+
+defrule( snsimp1, sqrt(1-%m*jacobi_sn(%a,%m)^2), jacobi_dn(%a, %m) );
+
+defrule( snsimp2, 1/sqrt(1-%m*jacobi_sn(%a,%m)^2), 1/jacobi_dn(%a, %m) );
+
+defrule( snsimp3, sqrt(1-jacobi_sn(%a,%m)^2), jacobi_cn(%a, %m) );
+
+defrule( snsimp4, 1/sqrt(1-jacobi_sn(%a,%m)^2), 1/jacobi_cn(%a, %m) );
+
+defrule( snsimp5, jacobi_sn(%a,%m)^2, 1 - jacobi_cn(%a,%m)^2);
+
+defrule( snsimp6, jacobi_sn(%a,%m)^2, (1 - jacobi_dn(%a,%m)^2)/ %m);
+
+defrule( cnsimp1, sqrt(1-jacobi_cn(%a,%m)^2), jacobi_sn(%a, %m) );
+
+defrule( cnsimp4, jacobi_cn(%a,%m)^2, 1 - jacobi_sn(%a,%m)^2);
+
+defrule( dnsimp1, jacobi_dn(%a,%m)^2,  (1-%m*jacobi_sn(%a,%m)^2)  );
+
+defrule( dnsimp11, jacobi_dn(%a,%m),  sqrt(1-%m*jacobi_sn(%a,%m)^2)  );
+
+
+defrule( simpsn5, jacobi_sn(%a, 1/%m), sqrt(%m)*jacobi_sn(sqrt(%m)*%a, %m) );
+
+defrule( simpcn5, jacobi_cn(%a, 1/%m), jacobi_dn(sqrt(%m)*%a, %m) );
+
+defrule( simpdn5, jacobi_dn(%a, 1/%m), jacobi_cn(sqrt(%m)*%a, %m) );
+
+
+defrule(repsn, jacobi_sn(%a, %m), sin (am(%a, %m) ));
+
+defrule(repcn, jacobi_cn(%a, %m), cos (am(%a, %m) ));
+
+defrule(amsimp1, asin(jacobi_sn( %a, %m )), am (%a, %m));
+
+
+defrule(sin2sn, sin (am(%a, %m) ), jacobi_sn(%a, %m));
+
+defrule(cos2cn, cos (am(%a, %m) ), jacobi_cn(%a, %m));
+
+/*
+symbolics
+*/
+
+gradef(E(x, m), jacobi_dn(x,m)^2 );
+atvalue(E(x, m), [x=0], 0);
+
+gradef(am(x, m), jacobi_dn(x,m) );
+
+/* matches a kernel */
+elintker(ker, xx):=block([%b, %m, %a, %x, %n ], 
+	ker:expand(ker), elint1(ker, xx),  
+	%b/sqrt(%n)*(elliptic_f (%a*xx, -%m/%n))/%a 
+);
+
+elintker1(ker, xx):=block([%b, %m, %a, %x, %n ], 
+    ker:expand(ker), elint2(ker, xx), 
+    %b/sqrt(%n+%m)*(elliptic_f (xx, 2*%m/(%n+%m))) 
+);
+
+elintker3(ker, xx):=block([%b, %m, %a, %x, %n ], 
+    ker:expand(ker), elint3(ker, xx), 
+    %b/%a *(elliptic_pi  ( %n,  am(xx, %m), %m)) 
+);
+
+/* indefinite elliptic_f */ 
+elinti(expr, x):=block([ker, %x, %a, u, v ], 
+	ker: subst(nounify(integrate)=lambda([u,v], u), expr), 
+	elintker(ker,x)
+);
+
+elinti1(expr, x):=block([ker, %x, %a, u, v ], 
+	ker: subst(nounify(integrate)=lambda([u,v], u), expr), 
+	elintker1(ker,x)
+);
+
+elinti3(expr, x):=block([ker, %x, %a, u, v ], 
+	ker: subst(nounify(integrate)=lambda([u,v], u), expr), 
+	elintker3(ker,x)
+);
+ 
+ 
+/* matching an antiderivative and primitive */
+intmatch(iexpr, ader, x, [simpfun]):=block([%rr, %b, %a, %x, %ker, d1, d2  ], 
+	if checklimits(iexpr)=false 
+	then checklimits1(iexpr),
+	if _debug=true then
+			display(%rr, %b, %a, %x, %ker),
+	d1:diff(iexpr, x), 
+	d2:diff(%rr*ader, x),  
+	if not emptyp(simpfun) then (
+		simpfun:first(simpfun),
+		d1: apply( simpfun, [d1] ),
+		d2: apply( simpfun, [d2] )
+	),
+	if _debug=true then
+			display(d2, d1),
+	[%a, %b ]:divide(d2, d1), 
+	if _debug=true then
+		display(%a, %b), 
+	if %a#0 then
+		%rr/%a*ader - integrate(ratsimp(%b/%a),x)
+);
+
+intelipt2(iexpr, ader, x):= block ([u],
+	intmatch(iexpr, ader, x, lambda ([u], apply1 (u, dnsimp1,snsimp4)) )
+);
+
+intelipt3(iexpr, ader, x):= block ([u],
+    intmatch(iexpr, ader, x, lambda ([u], apply1 (u, dnsimp1,cnsimp4)) )
+);
+
+/**
+numerics
+Jacobi epsilon function
+*/
+jaceps(x, m ):=block([   u,  fr:1, pp:0 ],
+	if not numerp(x) then return ('jaceps(x, m )),
+	pp:first(quad_qag( jacobi_dn( u,m)^2, u, 0, x, 3, 'epsrel=1d-8)),
+	float(fr*pp )
+);
+
+/* Legendre Pi */
+legpi(x, n, m ):=block([   u,  fr:1, pp:0 ],
+	if not numerp(x) then return ('legpi(x, n, m )),
+	x: elliptic_f (x, m),
+	pp:first(quad_qag( 1/(1-n*jacobi_sn(u, m)^2), u, 0, x, 3, 'epsrel=1d-8)),
+	float(fr*pp )
+);
+
+
+/*
+jaceps(x, m ):=block([   u,  fr:1, pp:0 ],
+	if not numerp(x) then return ('jaceps(x, m )),
+	pp:first(quad_qag(sqrt((1-m*u^2)/(1-u^2)) , u, 0, jacobi_dn( x,m), 3, 'epsrel=1d-8)),
+	float(fr*pp )
+);
+
+am(x, m ):=block([   u,  fr:1, pp:0 ],
+	if not numerp(x) then return ('am(x, m )),
+	pp:first(quad_qags( jacobi_dn( u,m), u, 0, x, 'epsrel=1d-8  )),
+	float(fr*pp )
+);
+
+*/
+/* AGM  algorithm */
+computel(u, m,tol):=block([nd, i, n, phi, phi1, a,b,c, sn  ],
+	mode_declare(nd, fixnum, i, fixnum, n, fixnum),
+	/*mode_declare(phi, float, sn, float), */
+	nd:min( fix(-log(tol)/log(2.)/2.), 16), 
+	i:0,
+	
+	mode_declare( completearray(a [nd]), float),
+	mode_declare( completearray(b [nd]), float),
+	mode_declare( completearray(c [nd]), float),
+	array(a, flonum, nd), 
+	array(b, flonum, nd), 
+	array(c, flonum, nd), 
+	
+	a[0]:1.,
+	c[0]:sqrt(m),
+	b[0]:sqrt(1. - m),
+
+	while abs(c[i]) >= tol and i< nd  do (
+		a[i+1] : 0.5 * float(a[i] + b[i]),
+		b[i+1] : sqrt  (a[i] * b[i]),
+		c[i+1] : 0.5 * float(a[i] - b[i]),          
+		i:i+1
+	),
+	n:i, 
+	phi: float(2**n * a[n] * (u)),
+   
+	for i:n thru 1 step -1 do  (
+		phi1:phi,
+		phi : 0.5 *  expand(asin(c[i]/ a[i] * sin(phi) ) + phi)
+	),
+	   
+	sn: expand(sin(phi)),
+	/** sn, cn, dn, am */
+	[ sn, expand(cos(phi)), sqrt(1.0 -  expand(m *sn*sn)), expand(phi), expand(phi-phi1)+float(%pi/2)]
+);
+
+
+/* Function to compute the complete elliptic integral of the third kind 
+ *
+ * http://scitation.aip.org/content/aip/journal/jap/34/9/10.1063/1.1729771
+ * Garrett, Milan Wayne. "Calculation of fields, forces, and mutual
+ * inductances of current systems by elliptic integrals." 
+ * Journal of Applied Physics 34.9 (1963): 2567-2573.
+ * eqs. (18)-(21)
+ * implemented for n < 1, m < 1.
+*/
+el_pi(n, m) := block(
+    [iter: 0, maxIter: 16,
+     kprime, a0, g0, zeta0, an, gn,
+     deltan, epsn, zetan ],
+    
+    /* Initialize variables */
+    kprime: sqrt(1. - m),
+    a0: 1.,
+    g0: kprime,
+    zeta0: 0,
+    an: a0,
+    gn: g0,
+    deltan: (1. - n) / kprime,
+    epsn: n / (1. - n),
+    zetan: zeta0,
+    
+    /* Iterative process */
+    while (((abs(an - gn) > 1e-15) or (abs(deltan - 1) > 1e-15)) and (iter < maxIter)) do (
+        zeta0: 0.5 * (epsn + zetan),
+        epsn: (deltan * epsn + zetan) / (1.0 + deltan),
+        zetan: zeta0,
+        
+        a0: 0.5 * (an + gn),
+        g0: sqrt(an * gn),
+        
+        an: a0,
+        gn: g0,
+        
+        deltan: 0.25 * gn / an * (2.0 + deltan + 1.0 / deltan),
+        
+        iter: iter + 1
+    ),
+     0.5 * float(%pi) / an * (1.0 + zetan)
+);
+
+/**
+Incomplete elliptic integral of the 3rd kind
+ * implemented for aa < 1, m < 1.
+ Fettis, H. E. (1965). Calculation of Elliptic Integrals of the Third Kind by Means of Gauss’ Transformation. Mathematics of Computation, 19(89), 97–104. 
+ https://doi.org/10.2307/2004102
+*/
+pii(phi,  aa, m, tol):=block([Q:0, R:1, S:1, T:0, G, U, kn, nd, i:0, rho, alpha2, sinphi, kp, ret, fr ],
+	nd:min( fix(-log(tol)/log(2.)/2.), 16), 
+	kn: sqrt( m),
+	fr: (-1)^round(phi/%pi),
+	alpha2:aa,
+	if m > abs(aa) then 
+		alpha2:m/aa,
+	rho: sqrt(1.0-m/alpha2),	
+	sinphi:sin(phi), 
+	if m > abs(aa) then 
+		U: sqrt( (1-aa) *(m/aa-1)/(1- m * sinphi**2 ) )*tan(phi),
+	while abs(kn) >= tol and i< nd  do (
+		G:GG(alpha2, sinphi, fr),
+		if _debug=true then  display(i, alpha2,    G, rho, alpha2, Q, S, T),
+		kp: sqrt(1-kn**2),
+		sinphi: (1.0+kp)* sinphi/(1.0 + sqrt(1.0 - kn**2 * sinphi**2)),		
+		alpha2:alpha2*(1.0+rho)^2/(1.0+ kp )^2,
+		kn: (1.0-kp)/(1.0+ kp ),
+		
+		Q:(1.0+kn)*(Q + (rho-1.0)/rho*S),
+		R:(1.0+kn)*R,
+		
+		T:T+G*S/rho,
+		S:2.0*(1.0+kn)/rho*S,
+		rho: sqrt(1.0- kn*(1.0-rho)/(1.0+rho)),
+		i:i+1
+	),
+	ret: Q*asin(sinphi)+S*G-T,
+	if m > abs(aa) then (
+		U: 0.5/sqrt( (1.0 - aa)*(m/aa-1))*log( abs((1+U)/(1-U))),
+		if _debug=true then display(U),
+		ret: -ret + asin(sinphi)*R + fr*U
+	),
+	fr*ret+2.*el_pi(aa, m)*round(phi/%pi)
+); 
+
+GG(aa, sinphi, fr):=block([qq, ret:0, tp],
+	tp: sinphi/sqrt(1.-sinphi**2),
+	if aa<1  then (
+		qq:sqrt(1.-aa),
+		ret:1/qq*atan2(qq*tp,1)
+	)elseif aa=1 then
+		ret:tp
+	else (
+		qq:sqrt(aa-1),
+		ret:0.5/qq*log(abs( (1.+ qq* tp )/((1.- qq* tp  ))))
+	),
+	float(ret)
+);
+
+GG(aa, sinphi, fr):=block([qq, ret:0, cp],
+	cp:  sqrt(1.-sinphi**2),
+	if aa<1  then (
+		qq:sqrt(1.-aa),
+		ret:1/qq*atan2(qq*sinphi,cp)
+	)elseif aa=1 then
+		ret:sinphi/cp
+	else (
+		qq:sqrt(aa-1),
+		ret:0.5/qq*log(abs( (cp + qq* sinphi )/((cp - qq* sinphi  ))))
+	),
+	float(ret)
+);
+
+/*
+computel1(u, m,tol):=block([nd, i, n, phi, phi1, a,b,c, sn , d:1.0 ],
+	mode_declare(nd, fixnum, i, fixnum, n, fixnum),
+	nd:min( fix(-log(tol)/log(2.)/2.), 16), 
+	i:0,
+	
+	mode_declare( completearray(a [nd]), float),
+	mode_declare( completearray(b [nd]), float),
+	mode_declare( completearray(c [nd]), float),
+	array(a, flonum, nd), 
+	array(b, flonum, nd), 
+	array(c, flonum, nd), 
+	
+	a[0]:1.,
+	c[0]:sqrt(m),
+	b[0]:sqrt(1. - m),
+
+	while abs(c[i]) >= tol and i< nd  do (
+		a[i+1] : 0.5 * float(a[i] + b[i]),
+		b[i+1] : sqrt  (a[i] * b[i]),
+		c[i+1] : 0.5 * float(a[i] - b[i]),          
+		i:i+1
+	),
+	n:i, 
+	phi:  a[n]/tan(u * a[n]),
+   
+	for i:n thru 1 step -1 do  (
+		phi1:phi,
+		phi : d*c[i],
+		d: (phi**2/a[i] +b[i-1])/(phi**2/a[i] +a[i-1])
+				
+	),
+	   
+	 sn: sgn( sin(u* a[n]))/sqrt(1+phi^2),
+	[ sn, phi*sn, d, expand(phi)]
+);
+*/		
+
+sgn(x):= if x=0 then 0 else if x>0 then 1 else -1;
+
+/*
+intphase (x, y, k, k1):= block([s, t, p ],  
+    s: floor(x/(2*k)), 
+    t: floor( (y)/(2*k1)), 
+    p: (if oddp(t) then 1 else 0),
+    s+ p* sgn(x)
+);
+*/
+
+intphase (x, y, k, k1):= block([s, t, p ],  
+    s: floor((x +2*k)/(4*k)),  
+    t: floor( (y +2*k1)/(4*k1)), 
+    p: (if oddp(t) then 1 else 0),
+    s+ p* sgn(x)
+);
+
+/*
+intphase3 (x, y, k, k1):= block([s, t, p ],  
+    s: floor((x + 2*k)/(4*k)),  
+    s 
+);
+*/
+
+/* here it is expanded */
+computelc1(u,m, tol):=block([sr, si, cr, ci, dr, di, ar, ai, x, y, dd, sc, cc, dc, ac, qq, pp, kk, kk1],
+    x: realpart(u),
+    y: imagpart(u),
+    [sr, cr, dr, ar ,pp]:computel(x,m, tol),
+    [si, ci, di, ai ,pp]:computel(y,1-m, tol),
+    dd: ci**2+m * sr**2 *si**2,
+    sc: sr *di/dd + %i *si * ci * dr * cr/dd,
+    cc: cr *ci/dd -%i * sr* dr* si * di/dd,
+    dc: dr *ci * di/dd -%i *m *sr *cr* si/dd,
+    kk1:elliptic_kc(1-m),
+    kk: elliptic_kc (m),
+    qq: intphase2 (x, y, kk, kk1),
+    ac: -atan2(((ci*cr*di*dr^2*si^2-ci*cr*di)*sr)/(di^2*dr^2*si^2*sr^2+ci^2*cr^2),(-(di^2*dr*si*sr^2)-ci^2*cr^2*dr*si)/(di^2*dr^2*si^2*sr^2+ci^2*cr^2)+1)/2,
+	ac:ac -atan2(((ci*cr*di*dr^2*si^2-ci*cr*di)*sr)/(di^2*dr^2*si^2*sr^2+ci^2*cr^2),1-(-(di^2*dr*si*sr^2)-ci^2*cr^2*dr*si)/(di^2*dr^2*si^2*sr^2+ci^2*cr^2))/2,
+    ac:ac -%i*log((dr^2*si^2-2*dr*si+1)/(dr^2*si^2+2*dr*si+1))/4,
+    ac:-ac + %pi*qq,
+    [  sc, cc, dc, ac ]
+);
+
+
+computelc1(u,m, tol):=block([sr, si, cr, ci, dr, di, ar, ai, x, y, dd, sc, cc, dc, ac, qq, pp, kk, kk1],
+    x: realpart(u),
+    y: imagpart(u),
+    [sr, cr, dr, ar ,pp]:computel(x,m, tol),
+    [si, ci, di, ai ,pp]:computel(y,1-m, tol),
+    dd: ci**2+m * sr**2 *si**2,
+    sc: sr *di/dd + %i *si * ci * dr * cr/dd,
+    cc: cr *ci /dd -%i * sr* dr* si * di/dd,
+    dc: dr *ci * di/dd -%i *m *sr *cr* si/dd,
+    kk1:elliptic_kc(1-m),
+    kk: elliptic_kc (m),
+    qq: intphase2 (x, y, kk, kk1),
+    ac: atan(rectform(sc/ cc)) , 
+    ac:-ac + %pi*qq,
+    [  sc, cc, dc, ac ]
+);
+
+
+
+/* correct */
+intphase2 (x, y, k, k1):= block([s, t, p ],  
+    s: floor((x + k)/(2*k)),  
+    s 
+);
+/* reference implementation */
+computelc(u,m, tol):=block([sr, si, cr, ci, dr, di, ar, ai, x, y, dd, sc, cc, dc, ac, qq, pp, kk, kk1],
+    x: realpart(u),
+    y: imagpart(u),
+    [sr, cr, dr, ar ,pp]:computel(x,m, tol),
+    [si, ci, di, ai ,pp]:computel(y,1-m, tol),
+    dd: ci**2+m * sr**2 *si**2,
+    sc: sr *di/dd + %i *si * ci * dr * cr/dd,
+    cc: cr *ci /dd -%i * sr* dr* si * di/dd,
+    dc: dr *ci * di/dd -%i *m *sr *cr* si/dd, 
+	kk1:elliptic_kc(1-m), 
+	kk: elliptic_kc(m),
+    qq: intphase2 (x, y, kk, kk1),
+    ac: asin(sc),
+    ac: (-1)^qq*ac+ %pi*qq,
+    [  sc, cc, dc, ac ]
+);
+
+
+
