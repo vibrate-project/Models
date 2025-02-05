@@ -115,7 +115,7 @@ Function {
 
    The material law
 
-   sigma_ij = C_ijkl epsilon_ij
+   sigma_ij = C_ijkl epsilon_kl
 
    is represented in 2D by four 2x2 tensors C_ij[], i,j=1,2, depending on the Lamé
    coefficients of the isotropic linear material,
@@ -137,17 +137,17 @@ Function {
 	c[] = E[]*nu[]/(1.+nu[])/(1.-2.*nu[]);
 	b[] = E[]/2./(1.+nu[]);
 	
-	C_xx[] = Tensor[ a[] ,0 ,0 ,  0 ,b[] ,0 ,  0 ,0 ,b[]  ];
-	C_xy[] = Tensor[ 0 ,c[] ,0 ,  b[] ,0 ,0 ,  0 ,0 ,0    ];
-	C_xz[] = Tensor[ 0 ,0 ,c[] ,  0 ,0 ,0   ,  b[] ,0 ,0  ];
+	C_xx[] = Tensor[ a[] ,0   ,0 ,  0   ,b[] ,0,   0   ,0  ,b[]];
+	C_xy[] = Tensor[ 0   ,c[] ,0 ,  b[] ,0   ,0,   0   ,0  ,0  ];
+	C_xz[] = Tensor[ 0   ,0   ,c[], 0   ,0   ,0,   b[] ,0  ,0  ];
 
-	C_yy[] = Tensor[ b[] ,0 ,0 ,  0 ,a[] ,0 ,  0 ,0 ,b[]  ];
-	C_yx[] = Tensor[ 0 ,b[] ,0 ,  c[] ,0 ,0 ,  0 ,0 ,0    ];
-	C_yz[] = Tensor[ 0 ,0   ,0 ,  0 ,0 ,c[] ,  0 ,b[] ,0  ];
+	C_yy[] = Tensor[ b[] ,0   ,0 ,  0   ,a[] ,0,   0,   0   ,b[]  ];
+	C_yx[] = Tensor[ 0   ,b[] ,0 ,  c[] ,0   ,0,   0,   0   ,0    ];
+	C_yz[] = Tensor[ 0   ,0   ,0 ,  0   ,0   ,c[], 0,   b[] ,0  ];
 	
-	C_zz[] = Tensor[ b[] ,0 ,0 ,  0 ,b[] ,0 ,  0 ,0 ,a[]  ];
-	C_zx[] = Tensor[ 0 ,0 ,b[] ,  0 ,0   ,0 ,  c[] ,0 ,0  ];
-	C_zy[] = Tensor[ 0   ,0 ,0 ,  0 ,0 ,b[] ,  0 ,c[] ,0  ];
+	C_zz[] = Tensor[ b[]  ,0  ,0 ,  0   ,b[] ,0 ,  0,   0,   a[]  ];
+	C_zx[] = Tensor[ 0    ,0  ,b[], 0   ,0   ,0 ,  c[], 0,   0  ];
+	C_zy[] = Tensor[ 0    ,0  ,0 ,  0   ,0   ,b[], 0,   c[], 0  ];
 }
 
 Constraint {
