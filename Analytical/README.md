@@ -1,6 +1,6 @@
 Tissue/sensor mechanical models 
 
-# Analytical model
+# Euler elastica model
  
 
 ![Model](elastica1.png)
