@@ -1,6 +1,6 @@
 Tissue/sensor mechanical models 
 
-3 Analytical models
+# Analytical model
 
 # Visco-Elastic models
 
