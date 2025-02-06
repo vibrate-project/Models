@@ -1,4 +1,4 @@
-#Model 1: Small Box
+# Model 1: Small Box
 
 Model geometry: 
 -	Width (y): reduced from 15 cm to 12 cm.
