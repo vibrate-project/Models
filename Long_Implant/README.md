@@ -1,5 +1,6 @@
-Model 3: Long Implant
+# Model 3: Long Implant
  
+ Model geometry:
 	- Width (y):  15 cm.
 	- Height (z): 15 cm.
 	- Length (x): 20 cm.
