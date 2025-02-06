@@ -1,4 +1,4 @@
-Model 1: Long Implant
+Model 3: Long Implant
  
 	- Width (y):  15 cm.
 	- Height (z): 15 cm.
