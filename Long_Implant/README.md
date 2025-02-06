@@ -1,4 +1,4 @@
-Model 1: Small Box
+Model 1: Long Implant
  
 	- Width (y):  15 cm.
 	- Height (z): 15 cm.
