@@ -1,4 +1,4 @@
-Model 2: Flat Box
+## Model 2: Flat Box
  
 -	Width (y): reduced from 15 cm to 12 cm.
 -	Height (z): reduced from 15 cm to 12 cm.

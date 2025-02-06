@@ -1,13 +1,13 @@
-Tissue/sensor mechanical models 
+# Tissue/sensor mechanical models 
 
-# Analytical model
+## Analytical model
 
-# Visco-Elastic models
+## Visco-Elastic models
 
 ![Model](model1.jpg)
 
-## Model 1: Small Box
+### Model 1: Small Box
  
-## Model 2: Flat Box
+### Model 2: Flat Box
 
-## Model 3: Long Implant
+### Model 3: Long Implant
