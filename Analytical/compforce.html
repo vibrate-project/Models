@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>compforce</title>
+    <meta name="generator" content="wxMaxima"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <script type="text/x-mathjax-config">  MathJax.Hub.Config({
+    displayAlign: "left",
+    context: "MathJax",
+    TeX: {TagSide: "left"}
+  })
+</script>
+    <script id="MathJax-script" type="application/javascript" async="true" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">  // A comment that hinders wxWidgets from optimizing this tag too much.
+</script>
+    <link rel="stylesheet" type="text/css" href="compforce_htmlimg/compforce.css"/>
+  </head>
+  <body>
+    <!-- ****************************************************** -->
+    <!-- *        Created with wxMaxima version 23.05.1       * -->
+    <!-- ****************************************************** -->
+    <noscript>
+      <div class="error message">
+        <p>Please enable JavaScript in order to get a 2d display of the equations embedded in this web page.</p>
+      </div>
+    </noscript>
+    <p hidden="hidden">\(      \DeclareMathOperator{\abs}{abs}
+      \newcommand{\ensuremath}[1]{\mbox{$#1$}}
+\)</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i1)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_function">load</span>
+            <span class="code_operator">(</span>
+            <span class="code_string">"elliptic2.mac"</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\]\[\mbox{}\\\mbox{%default
+defmatch: }{{\sin{\left( \ensuremath{\mathrm{\% a}}\, \ensuremath{\mathrm{\% x}}\right) }}^{2}} \ensuremath{\mathrm{\% m}}\mbox{%default
+ will be matched uniquely since sub-parts would otherwise be ambiguous.
+}\]\[\mbox{}\\\mbox{%default
+defmatch: }\operatorname{-}\left( {{\operatorname{jacobi\_ sn}\left( \ensuremath{\mathrm{\% x}}\operatorname{,}\ensuremath{\mathrm{\% m}}\right) }^{2}} \ensuremath{\mathrm{\% n}} 1\right) \mbox{%default
+ will be matched uniquely since sub-parts would otherwise be ambiguous.}\]
+</p>
+    <p>\[\operatorname{	}"elliptic2.mac"\]
+</p>
+    <!-- Text cell -->
+    <div class="comment">Derivation of the composite force model
+</div>
+    <!-- Text cell -->
+    <div class="comment">bending angle
+</div>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i2)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_variable">Q</span>
+            <span class="code_operator">:</span>
+            <span class="code_variable">%pi</span>
+            <span class="code_operator">/</span>
+            <span class="code_number">2</span>
+            <span class="code_operator">-</span>
+            <span class="code_variable">phi</span>
+            <span class="code_operator">+</span>
+            <span class="code_number">2</span>
+            <span class="code_operator">*</span>
+            <span class="code_function">am</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">q</span>
+            <span class="code_operator">*</span>
+            <span class="code_variable">s</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">m</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{(Q)	}2 \operatorname{am}\left( q s\operatorname{,}m\right) \operatorname{-}phi\operatorname{+}\frac{\ensuremath{\pi} }{2}\]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i3)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_variable">K1</span>
+            <span class="code_operator">:</span>
+            <span class="code_function">sin</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">Q</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{(K1)	}\cos{\left( 2 \operatorname{am}\left( q s\operatorname{,}m\right) \operatorname{-}phi\right) }\]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i4)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_variable">K11</span>
+            <span class="code_operator">:</span>
+            <span class="code_variable">K1</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">trigexpand</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{(K11)	}\cos{(phi)} \left( {{\cos{\left( \operatorname{am}\left( q s\operatorname{,}m\right) \right) }}^{2}}\operatorname{-}{{\sin{\left( \operatorname{am}\left( q s\operatorname{,}m\right) \right) }}^{2}}\right) \operatorname{+}2 \sin{(phi)} \cos{\left( \operatorname{am}\left( q s\operatorname{,}m\right) \right) } \sin{\left( \operatorname{am}\left( q s\operatorname{,}m\right) \right) }\]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i5)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_variable">K12</span>
+            <span class="code_operator">:</span>
+            <span class="code_function">apply1</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">K11</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">sin2sn</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">cos2cn</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{(K12)	}\cos{(phi)} \left( {{\operatorname{jacobi\_ cn}\left( q s\operatorname{,}m\right) }^{2}}\operatorname{-}{{\operatorname{jacobi\_ sn}\left( q s\operatorname{,}m\right) }^{2}}\right) \operatorname{+}2 \sin{(phi)} \operatorname{jacobi\_ cn}\left( q s\operatorname{,}m\right)  \operatorname{jacobi\_ sn}\left( q s\operatorname{,}m\right) \]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i6)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_variable">P1</span>
+            <span class="code_operator">:</span>
+            <span class="code_function">cos</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">phi</span>
+            <span class="code_operator">)</span>
+            <span class="code_operator">*</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">a</span>
+            <span class="code_operator">*</span>
+            <span class="code_function">E</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">q</span>
+            <span class="code_operator">*</span>
+            <span class="code_variable">s</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">m</span>
+            <span class="code_operator">)</span>
+            <span class="code_operator">-</span>
+            <span class="code_variable">b</span>
+            <span class="code_operator">*</span>
+            <span class="code_variable">q</span>
+            <span class="code_operator">*</span>
+            <span class="code_variable">s</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{(P1)	}\cos{(phi)} \left( a \operatorname{E}\left( q s\operatorname{,}m\right) \operatorname{-}b q s\right) \]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i7)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_variable">dP1</span>
+            <span class="code_operator">:</span>
+            <span class="code_function">diff</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">P1</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">s</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{(dP1)	}\cos{(phi)} \left( a q {{\operatorname{jacobi\_ dn}\left( q s\operatorname{,}m\right) }^{2}}\operatorname{-}b q\right) \]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i8)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_function">apply1</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">dP1</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">dnsimp1</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">expand</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{	}\operatorname{-}\left( a m \cos{(phi)} q {{\operatorname{jacobi\_ sn}\left( q s\operatorname{,}m\right) }^{2}}\right) \operatorname{-}b \cos{(phi)} q\operatorname{+}a \cos{(phi)} q\]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i9)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_function">part</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">K12</span>
+            <span class="code_endofline">,</span>
+            <span class="code_number">1</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{	}\cos{(phi)} \left( {{\operatorname{jacobi\_ cn}\left( q s\operatorname{,}m\right) }^{2}}\operatorname{-}{{\operatorname{jacobi\_ sn}\left( q s\operatorname{,}m\right) }^{2}}\right) \]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i10)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_variable">P2</span>
+            <span class="code_operator">:</span>
+            <span class="code_function">apply1</span>
+            <span class="code_operator">(</span>
+            <span class="code_function">part</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">K12</span>
+            <span class="code_endofline">,</span>
+            <span class="code_number">1</span>
+            <span class="code_operator">)</span>
+            <span class="code_operator">-</span>
+            <span class="code_variable">dP1</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">cnsimp4</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">dnsimp1</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">expand</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{(P2)	}a m \cos{(phi)} q {{\operatorname{jacobi\_ sn}\left( q s\operatorname{,}m\right) }^{2}}\operatorname{-}2 \cos{(phi)} {{\operatorname{jacobi\_ sn}\left( q s\operatorname{,}m\right) }^{2}}\operatorname{+}b \cos{(phi)} q\operatorname{-}a \cos{(phi)} q\operatorname{+}\cos{(phi)}\]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i11)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_function">ratcoeff</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">P2</span>
+            <span class="code_endofline">,</span>
+            <span class="code_function">jacobi_sn</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">q</span>
+            <span class="code_operator">*</span>
+            <span class="code_variable">s</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">m</span>
+            <span class="code_operator">)</span>
+            <span class="code_operator">^</span>
+            <span class="code_number">2</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{	}a m \cos{(phi)} q\operatorname{-}2 \cos{(phi)}\]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i12)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_function">solve</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">%</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">a</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{	}\left[ a\operatorname{=}\frac{2}{m q}\right] \]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i13)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_variable">P2</span>
+            <span class="code_endofline">,</span>
+            <span class="code_operator">[</span>
+            <span class="code_variable">a</span>
+            <span class="code_operator">=</span>
+            <span class="code_number">2</span>
+            <span class="code_operator">/</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">m</span>
+            <span class="code_operator">*</span>
+            <span class="code_variable">q</span>
+            <span class="code_operator">)</span>
+            <span class="code_operator">]</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{	}b \cos{(phi)} q\operatorname{-}\frac{2 \cos{(phi)}}{m}\operatorname{+}\cos{(phi)}\]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i14)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_function">solve</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">%</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">b</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{	}\left[ b\operatorname{=}\operatorname{-}\left( \frac{m\operatorname{-}2}{m q}\right) \right] \]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i15)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_variable">P3</span>
+            <span class="code_operator">:</span>
+            <span class="code_variable">P1</span>
+            <span class="code_endofline">,</span>
+            <span class="code_operator">[</span>
+            <span class="code_variable">a</span>
+            <span class="code_operator">=</span>
+            <span class="code_number">2</span>
+            <span class="code_operator">/</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">m</span>
+            <span class="code_operator">*</span>
+            <span class="code_variable">q</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">b</span>
+            <span class="code_operator">=</span>
+            <span class="code_operator">-</span>
+            <span class="code_operator">(</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">m</span>
+            <span class="code_operator">-</span>
+            <span class="code_number">2</span>
+            <span class="code_operator">)</span>
+            <span class="code_operator">/</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">m</span>
+            <span class="code_operator">*</span>
+            <span class="code_variable">q</span>
+            <span class="code_operator">)</span>
+            <span class="code_operator">)</span>
+            <span class="code_operator">]</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{(P3)	}\cos{(phi)} \left( \frac{2 \operatorname{E}\left( q s\operatorname{,}m\right) }{m q}\operatorname{+}\frac{\left( m\operatorname{-}2\right)  s}{m}\right) \]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i16)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_function">diff</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">P3</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">s</span>
+            <span class="code_operator">)</span>
+            <span class="code_operator">-</span>
+            <span class="code_function">part</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">K12</span>
+            <span class="code_endofline">,</span>
+            <span class="code_number">1</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{	}\cos{(phi)} \left( \frac{2 {{\operatorname{jacobi\_ dn}\left( q s\operatorname{,}m\right) }^{2}}}{m}\operatorname{+}\frac{m\operatorname{-}2}{m}\right) \operatorname{-}\cos{(phi)} \left( {{\operatorname{jacobi\_ cn}\left( q s\operatorname{,}m\right) }^{2}}\operatorname{-}{{\operatorname{jacobi\_ sn}\left( q s\operatorname{,}m\right) }^{2}}\right) \]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i17)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_variable">%</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">ratsimp</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{	}\frac{m \cos{(phi)} {{\operatorname{jacobi\_ sn}\left( q s\operatorname{,}m\right) }^{2}}\operatorname{+}2 \cos{(phi)} {{\operatorname{jacobi\_ dn}\left( q s\operatorname{,}m\right) }^{2}}\operatorname{-}m \cos{(phi)} {{\operatorname{jacobi\_ cn}\left( q s\operatorname{,}m\right) }^{2}}\operatorname{+}\left( m\operatorname{-}2\right)  \cos{(phi)}}{m}\]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i18)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_function">apply1</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">%</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">dnsimp1</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">cnsimp4</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{	}\]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i19)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_variable">%</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">expand</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{	}0\]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i20)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_variable">P4</span>
+            <span class="code_operator">:</span>
+            <span class="code_number">2</span>
+            <span class="code_operator">*</span>
+            <span class="code_function">sin</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">phi</span>
+            <span class="code_operator">)</span>
+            <span class="code_operator">*</span>
+            <span class="code_operator">(</span>
+            <span class="code_number">1</span>
+            <span class="code_operator">-</span>
+            <span class="code_function">jacobi_dn</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">q</span>
+            <span class="code_operator">*</span>
+            <span class="code_variable">s</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">m</span>
+            <span class="code_operator">)</span>
+            <span class="code_operator">)</span>
+            <span class="code_operator">/</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">q</span>
+            <span class="code_operator">*</span>
+            <span class="code_variable">m</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{(P4)	}\frac{2 \sin{(phi)} \left( 1\operatorname{-}\operatorname{jacobi\_ dn}\left( q s\operatorname{,}m\right) \right) }{m q}\]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i21)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_function">part</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">K12</span>
+            <span class="code_endofline">,</span>
+            <span class="code_number">2</span>
+            <span class="code_operator">)</span>
+            <span class="code_operator">-</span>
+            <span class="code_function">diff</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">P4</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">s</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{	}0\]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i22)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_variable">P5</span>
+            <span class="code_operator">:</span>
+            <span class="code_variable">P3</span>
+            <span class="code_operator">+</span>
+            <span class="code_variable">P4</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{(P5)	}\frac{2 \sin{(phi)} \left( 1\operatorname{-}\operatorname{jacobi\_ dn}\left( q s\operatorname{,}m\right) \right) }{m q}\operatorname{+}\cos{(phi)} \left( \frac{2 \operatorname{E}\left( q s\operatorname{,}m\right) }{m q}\operatorname{+}\frac{\left( m\operatorname{-}2\right)  s}{m}\right) \]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i23)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_function">apply1</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">K12</span>
+            <span class="code_operator">-</span>
+            <span class="code_function">diff</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">P5</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">s</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">cnsimp4</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">dnsimp1</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{	}\cos{(phi)} \left( 1\operatorname{-}2 {{\operatorname{jacobi\_ sn}\left( q s\operatorname{,}m\right) }^{2}}\right) \operatorname{-}\cos{(phi)} \left( \frac{2 \left( 1\operatorname{-}m {{\operatorname{jacobi\_ sn}\left( q s\operatorname{,}m\right) }^{2}}\right) }{m}\operatorname{+}\frac{m\operatorname{-}2}{m}\right) \]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i24)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_variable">%</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">expand</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{	}0\]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i25)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_variable">K2</span>
+            <span class="code_operator">:</span>
+            <span class="code_function">cos</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">Q</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{(K2)	}\operatorname{-}\sin{\left( 2 \operatorname{am}\left( q s\operatorname{,}m\right) \operatorname{-}phi\right) }\]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i26)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_variable">K21</span>
+            <span class="code_operator">:</span>
+            <span class="code_variable">K2</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">trigexpand</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{(K21)	}\sin{(phi)} \left( {{\cos{\left( \operatorname{am}\left( q s\operatorname{,}m\right) \right) }}^{2}}\operatorname{-}{{\sin{\left( \operatorname{am}\left( q s\operatorname{,}m\right) \right) }}^{2}}\right) \operatorname{-}2 \cos{(phi)} \cos{\left( \operatorname{am}\left( q s\operatorname{,}m\right) \right) } \sin{\left( \operatorname{am}\left( q s\operatorname{,}m\right) \right) }\]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i27)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_function">diff</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">K21</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">phi</span>
+            <span class="code_operator">)</span>
+            <span class="code_operator">-</span>
+            <span class="code_variable">K11</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{	}0\]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i28)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_variable">V1</span>
+            <span class="code_operator">:</span>
+            <span class="code_function">matrix</span>
+            <span class="code_operator">(</span>
+            <span class="code_operator">[</span>
+            <span class="code_variable">P5</span>
+            <span class="code_operator">]</span>
+            <span class="code_endofline">,</span>
+            <span class="code_operator">[</span>
+            <span class="code_function">diff</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">P5</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">phi</span>
+            <span class="code_operator">)</span>
+            <span class="code_operator">]</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{(V1)	}\begin{pmatrix}\frac{2 \sin{(phi)} \left( 1\operatorname{-}\operatorname{jacobi\_ dn}\left( q s\operatorname{,}m\right) \right) }{m q}\operatorname{+}\cos{(phi)} \left( \frac{2 \operatorname{E}\left( q s\operatorname{,}m\right) }{m q}\operatorname{+}\frac{\left( m\operatorname{-}2\right)  s}{m}\right) \\
+\frac{2 \cos{(phi)} \left( 1\operatorname{-}\operatorname{jacobi\_ dn}\left( q s\operatorname{,}m\right) \right) }{m q}\operatorname{-}\sin{(phi)} \left( \frac{2 \operatorname{E}\left( q s\operatorname{,}m\right) }{m q}\operatorname{+}\frac{\left( m\operatorname{-}2\right)  s}{m}\right) \end{pmatrix}\]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i29)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_variable">V0</span>
+            <span class="code_operator">:</span>
+            <span class="code_variable">V1</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">phi</span>
+            <span class="code_operator">=</span>
+            <span class="code_number">0</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{(V0)	}\begin{pmatrix}\frac{2 \operatorname{E}\left( q s\operatorname{,}m\right) }{m q}\operatorname{+}\frac{\left( m\operatorname{-}2\right)  s}{m}\\
+\frac{2 \left( 1\operatorname{-}\operatorname{jacobi\_ dn}\left( q s\operatorname{,}m\right) \right) }{m q}\end{pmatrix}\]
+</p>
+    <!-- Text cell -->
+    <div class="comment">Rotation matrix
+</div>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i30)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_variable">RR</span>
+            <span class="code_operator">:</span>
+            <span class="code_function">matrix</span>
+            <span class="code_operator">(</span>
+            <span class="code_operator">[</span>
+            <span class="code_function">cos</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">phi</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">,</span>
+            <span class="code_function">sin</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">phi</span>
+            <span class="code_operator">)</span>
+            <span class="code_operator">]</span>
+            <span class="code_endofline">,</span>
+            <span class="code_operator">[</span>
+            <span class="code_operator">-</span>
+            <span class="code_function">sin</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">phi</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">,</span>
+            <span class="code_function">cos</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">phi</span>
+            <span class="code_operator">)</span>
+            <span class="code_operator">]</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{(RR)	}\begin{pmatrix}\cos{(phi)} &amp; \sin{(phi)}\\
+\operatorname{-}\sin{(phi)} &amp; \cos{(phi)}\end{pmatrix}\]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i31)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_variable">RR</span>
+            <span class="code_endofline">.</span>
+            <span class="code_variable">V0</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{	}\begin{pmatrix}\frac{2 \sin{(phi)} \left( 1\operatorname{-}\operatorname{jacobi\_ dn}\left( q s\operatorname{,}m\right) \right) }{m q}\operatorname{+}\cos{(phi)} \left( \frac{2 \operatorname{E}\left( q s\operatorname{,}m\right) }{m q}\operatorname{+}\frac{\left( m\operatorname{-}2\right)  s}{m}\right) \\
+\frac{2 \cos{(phi)} \left( 1\operatorname{-}\operatorname{jacobi\_ dn}\left( q s\operatorname{,}m\right) \right) }{m q}\operatorname{-}\sin{(phi)} \left( \frac{2 \operatorname{E}\left( q s\operatorname{,}m\right) }{m q}\operatorname{+}\frac{\left( m\operatorname{-}2\right)  s}{m}\right) \end{pmatrix}\]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i32)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_variable">V1</span>
+            <span class="code_operator">-</span>
+            <span class="code_variable">%</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{	}\begin{pmatrix}0\\
+0\end{pmatrix}\]
+</p>
+    <hr/>
+    <p>
+      <small> Created with 
+        <a href="https://wxMaxima-developers.github.io/wxmaxima/">wxMaxima</a>.</small>
+    </p>
+    <small> The source of this Maxima session can be downloaded 
+      <a href="compforce_htmlimg/compforce.wxmx">here</a>.</small>
+  </body>
+</html>

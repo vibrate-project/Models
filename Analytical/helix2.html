@@ -1,0 +1,1180 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>helix2</title>
+    <meta name="generator" content="wxMaxima"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <script type="text/x-mathjax-config">  MathJax.Hub.Config({
+    displayAlign: "left",
+    context: "MathJax",
+    TeX: {TagSide: "left"}
+  })
+</script>
+    <script id="MathJax-script" type="application/javascript" async="true" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">  // A comment that hinders wxWidgets from optimizing this tag too much.
+</script>
+    <link rel="stylesheet" type="text/css" href="helix2_htmlimg/helix2.css"/>
+  </head>
+  <body>
+    <!-- ****************************************************** -->
+    <!-- *        Created with wxMaxima version 23.05.1       * -->
+    <!-- ****************************************************** -->
+    <noscript>
+      <div class="error message">
+        <p>Please enable JavaScript in order to get a 2d display of the equations embedded in this web page.</p>
+      </div>
+    </noscript>
+    <p hidden="hidden">\(      \DeclareMathOperator{\abs}{abs}
+      \newcommand{\ensuremath}[1]{\mbox{$#1$}}
+\)</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i1)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_function">load</span>
+            <span class="code_operator">(</span>
+            <span class="code_string">"cliffordan.mac"</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\]\[\mbox{}\\"package name: clifford.mac"" "
+\]\[\mbox{}\\"author: "" ""Dimiter Prodanov"" "
+\]\[\mbox{}\\"version:"" "\ensuremath{\mathrm{v25}}" "
+\]\[\mbox{}\\"Recommended location: share/contrib"" "
+\]\[\mbox{}\\"last update: 19 Jan 2025"" "
+\]\[\mbox{}\\"warning: redefining @ "" "
+\]\[\mbox{}\\"package name: cliffordan.mac"" "
+\]\[\mbox{}\\"author: "" ""Dimiter Prodanov"" "
+\]\[\mbox{}\\"version:"" "\ensuremath{\mathrm{v2}}" "
+\]\[\mbox{}\\"Recommended location: share/contrib"" "
+\]\[\mbox{}\\"last update: 7 Jul 2023"" "\]
+</p>
+    <p>\[\operatorname{	}""C:/Users/dimit/Dropbox/maxima/cliffordan.mac""\]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i2)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_function">clifford</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">e</span>
+            <span class="code_endofline">,</span>
+            <span class="code_number">3</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{	}\left[ 1\operatorname{,}1\operatorname{,}1\right] \]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i3)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_function">assume</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">a</span>
+            <span class="code_endofline">&gt;</span>
+            <span class="code_number">0</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">b</span>
+            <span class="code_endofline">&gt;</span>
+            <span class="code_number">0</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{	}\left[ a\operatorname{&gt;  }0\operatorname{,}b\operatorname{&gt;  }0\right] \]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i4)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_function">declare</span>
+            <span class="code_operator">(</span>
+            <span class="code_operator">[</span>
+            <span class="code_variable">a</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">b</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">t</span>
+            <span class="code_operator">]</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">scalar</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{	}\ensuremath{\mathrm{done}}\]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i5)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_variable">r</span>
+            <span class="code_operator">:</span>
+            <span class="code_function">lvect</span>
+            <span class="code_operator">(</span>
+            <span class="code_operator">[</span>
+            <span class="code_variable">a</span>
+            <span class="code_operator">*</span>
+            <span class="code_function">cos</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">t</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">a</span>
+            <span class="code_operator">*</span>
+            <span class="code_function">sin</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">t</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">b</span>
+            <span class="code_operator">*</span>
+            <span class="code_variable">t</span>
+            <span class="code_operator">]</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{(r)	}{e_3} b t\operatorname{+}{e_1} a \cos{(t)}\operatorname{+}{e_2} a \sin{(t)}\]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i6)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_variable">dr</span>
+            <span class="code_operator">:</span>
+            <span class="code_function">diff</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">r</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">t</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{(dr)	}{e_3} b\operatorname{+}{e_2} a \cos{(t)}\operatorname{-}{e_1} a \sin{(t)}\]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i7)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_variable">L</span>
+            <span class="code_operator">:</span>
+            <span class="code_operator">-</span>
+            <span class="code_function">cnorm</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">dr</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{(L)	}{{b}^{2}}\operatorname{+}{{a}^{2}} {{\cos{(t)}}^{2}}\operatorname{+}{{a}^{2}} {{\sin{(t)}}^{2}}\]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i8)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_variable">L</span>
+            <span class="code_operator">:</span>
+            <span class="code_function">trigsimp</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">L</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{(L)	}{{a}^{2}}\operatorname{+}{{b}^{2}}\]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i9)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_variable">T</span>
+            <span class="code_operator">:</span>
+            <span class="code_variable">dr</span>
+            <span class="code_operator">/</span>
+            <span class="code_function">sqrt</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">L</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{(T)	}\frac{{e_3} b\operatorname{+}{e_2} a \cos{(t)}\operatorname{-}{e_1} a \sin{(t)}}{\sqrt{{{a}^{2}}\operatorname{+}{{b}^{2}}}}\]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i10)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_operator">-</span>
+            <span class="code_function">cnorm</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">T</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{	}\frac{{{b}^{2}}\operatorname{+}{{a}^{2}} {{\cos{(t)}}^{2}}\operatorname{+}{{a}^{2}} {{\sin{(t)}}^{2}}}{{{a}^{2}}\operatorname{+}{{b}^{2}}}\]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i11)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_variable">%</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">trigsimp</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{	}1\]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i12)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_variable">dT</span>
+            <span class="code_operator">:</span>
+            <span class="code_function">diff</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">T</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">t</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{(dT)	}\frac{\operatorname{-}\left( {e_1} a \cos{(t)}\right) \operatorname{-}{e_2} a \sin{(t)}}{\sqrt{{{a}^{2}}\operatorname{+}{{b}^{2}}}}\]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i13)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_variable">N2</span>
+            <span class="code_operator">:</span>
+            <span class="code_operator">-</span>
+            <span class="code_function">cnorm</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">dT</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{(N2)	}\frac{{{a}^{2}} {{\cos{(t)}}^{2}}\operatorname{+}{{a}^{2}} {{\sin{(t)}}^{2}}}{{{a}^{2}}\operatorname{+}{{b}^{2}}}\]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i14)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_variable">N2</span>
+            <span class="code_operator">:</span>
+            <span class="code_function">trigsimp</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">N2</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{(N2)	}\frac{{{a}^{2}}}{{{a}^{2}}\operatorname{+}{{b}^{2}}}\]
+</p>
+    <!-- Text cell -->
+    <div class="comment">curvature
+</div>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i15)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_variable">K</span>
+            <span class="code_operator">:</span>
+            <span class="code_function">sqrt</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">N2</span>
+            <span class="code_operator">/</span>
+            <span class="code_variable">L</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{(K)	}\frac{a}{{{a}^{2}}\operatorname{+}{{b}^{2}}}\]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i16)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_variable">N</span>
+            <span class="code_operator">:</span>
+            <span class="code_variable">dT</span>
+            <span class="code_operator">/</span>
+            <span class="code_function">sqrt</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">N2</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">factor</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{(N)	}\operatorname{-}\left( {e_1} \cos{(t)}\operatorname{+}{e_2} \sin{(t)}\right) \]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i17)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_variable">O</span>
+            <span class="code_operator">:</span>
+            <span class="code_variable">T</span>
+            <span class="code_endofline">&amp;</span>
+            <span class="code_variable">N</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{(O)	}\frac{\left( {e_1}\ensuremath{\mathrm{ . }}{e_3}\right)  b \cos{(t)}}{\sqrt{{{a}^{2}}\operatorname{+}{{b}^{2}}}}\operatorname{+}\frac{\left( {e_1}\ensuremath{\mathrm{ . }}{e_2}\right)  a {{\cos{(t)}}^{2}}}{\sqrt{{{a}^{2}}\operatorname{+}{{b}^{2}}}}\operatorname{+}\frac{\left( {e_2}\ensuremath{\mathrm{ . }}{e_3}\right)  b \sin{(t)}}{\sqrt{{{a}^{2}}\operatorname{+}{{b}^{2}}}}\operatorname{+}\frac{\left( {e_1}\ensuremath{\mathrm{ . }}{e_2}\right)  a {{\sin{(t)}}^{2}}}{\sqrt{{{a}^{2}}\operatorname{+}{{b}^{2}}}}\]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i18)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_variable">O</span>
+            <span class="code_operator">:</span>
+            <span class="code_variable">O</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">trigsimp</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{(O)	}\frac{\left( {e_1}\ensuremath{\mathrm{ . }}{e_2}\right)  a\operatorname{+}\left( {e_1}\ensuremath{\mathrm{ . }}{e_3}\right)  b \cos{(t)}\operatorname{+}\left( {e_2}\ensuremath{\mathrm{ . }}{e_3}\right)  b \sin{(t)}}{\sqrt{{{a}^{2}}\operatorname{+}{{b}^{2}}}}\]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i19)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_function">cnorm</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">O</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{	}\frac{{{a}^{2}}\operatorname{+}{{b}^{2}} {{\cos{(t)}}^{2}}\operatorname{+}{{b}^{2}} {{\sin{(t)}}^{2}}}{{{a}^{2}}\operatorname{+}{{b}^{2}}}\]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i20)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_function">trigsimp</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">%</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{	}1\]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i21)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_variable">B</span>
+            <span class="code_operator">:</span>
+            <span class="code_operator">-</span>
+            <span class="code_variable">%iv</span>
+            <span class="code_endofline">|</span>
+            <span class="code_variable">O</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{(B)	}\frac{{e_3} a}{\sqrt{{{a}^{2}}\operatorname{+}{{b}^{2}}}}\operatorname{-}\frac{{e_2} b \cos{(t)}}{\sqrt{{{a}^{2}}\operatorname{+}{{b}^{2}}}}\operatorname{+}\frac{{e_1} b \sin{(t)}}{\sqrt{{{a}^{2}}\operatorname{+}{{b}^{2}}}}\]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i22)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_operator">-</span>
+            <span class="code_function">cnorm</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">B</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{	}\frac{{{a}^{2}}\operatorname{+}{{b}^{2}} {{\cos{(t)}}^{2}}\operatorname{+}{{b}^{2}} {{\sin{(t)}}^{2}}}{{{a}^{2}}\operatorname{+}{{b}^{2}}}\]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i23)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_function">trigsimp</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">%</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{	}1\]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i24)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_variable">dN</span>
+            <span class="code_operator">:</span>
+            <span class="code_function">diff</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">N</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">t</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{(dN)	}\operatorname{-}\left( {e_2} \cos{(t)}\right) \operatorname{+}{e_1} \sin{(t)}\]
+</p>
+    <!-- Text cell -->
+    <div class="comment">torsion
+</div>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i25)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_variable">tau</span>
+            <span class="code_operator">:</span>
+            <span class="code_variable">B</span>
+            <span class="code_endofline">|</span>
+            <span class="code_variable">dN</span>
+            <span class="code_operator">/</span>
+            <span class="code_function">sqrt</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">L</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{(tau)	}\frac{b {{\cos{(t)}}^{2}}}{{{a}^{2}}\operatorname{+}{{b}^{2}}}\operatorname{+}\frac{b {{\sin{(t)}}^{2}}}{{{a}^{2}}\operatorname{+}{{b}^{2}}}\]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i26)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_variable">tau</span>
+            <span class="code_operator">:</span>
+            <span class="code_variable">tau</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">trigsimp</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{(tau)	}\frac{b}{{{a}^{2}}\operatorname{+}{{b}^{2}}}\]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i27)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_variable">Omega</span>
+            <span class="code_operator">:</span>
+            <span class="code_variable">dT</span>
+            <span class="code_endofline">&amp;</span>
+            <span class="code_variable">T</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{(Omega)	}\operatorname{-}\left( \frac{\left( {e_1}\ensuremath{\mathrm{ . }}{e_3}\right)  a b \cos{(t)}}{{{a}^{2}}\operatorname{+}{{b}^{2}}}\right) \operatorname{-}\frac{\left( {e_1}\ensuremath{\mathrm{ . }}{e_2}\right)  {{a}^{2}} {{\cos{(t)}}^{2}}}{{{a}^{2}}\operatorname{+}{{b}^{2}}}\operatorname{-}\frac{\left( {e_2}\ensuremath{\mathrm{ . }}{e_3}\right)  a b \sin{(t)}}{{{a}^{2}}\operatorname{+}{{b}^{2}}}\operatorname{-}\frac{\left( {e_1}\ensuremath{\mathrm{ . }}{e_2}\right)  {{a}^{2}} {{\sin{(t)}}^{2}}}{{{a}^{2}}\operatorname{+}{{b}^{2}}}\]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i28)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_variable">Omega</span>
+            <span class="code_operator">:</span>
+            <span class="code_variable">K</span>
+            <span class="code_operator">*</span>
+            <span class="code_variable">N</span>
+            <span class="code_endofline">&amp;</span>
+            <span class="code_variable">T</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{(Omega)	}\operatorname{-}\left( \frac{\left( {e_1}\ensuremath{\mathrm{ . }}{e_3}\right)  a b \cos{(t)}}{{{\left( {{a}^{2}}\operatorname{+}{{b}^{2}}\right) }^{\frac{3}{2}}}}\right) \operatorname{-}\frac{\left( {e_1}\ensuremath{\mathrm{ . }}{e_2}\right)  {{a}^{2}} {{\cos{(t)}}^{2}}}{{{\left( {{a}^{2}}\operatorname{+}{{b}^{2}}\right) }^{\frac{3}{2}}}}\operatorname{-}\frac{\left( {e_2}\ensuremath{\mathrm{ . }}{e_3}\right)  a b \sin{(t)}}{{{\left( {{a}^{2}}\operatorname{+}{{b}^{2}}\right) }^{\frac{3}{2}}}}\operatorname{-}\frac{\left( {e_1}\ensuremath{\mathrm{ . }}{e_2}\right)  {{a}^{2}} {{\sin{(t)}}^{2}}}{{{\left( {{a}^{2}}\operatorname{+}{{b}^{2}}\right) }^{\frac{3}{2}}}}\]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i29)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_variable">Omega</span>
+            <span class="code_operator">:</span>
+            <span class="code_function">trigsimp</span>
+            <span class="code_operator">(</span>
+            <span class="code_function">factor</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">Omega</span>
+            <span class="code_operator">)</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{(Omega)	}\operatorname{-}\left( \frac{\left( {e_1}\ensuremath{\mathrm{ . }}{e_2}\right)  {{a}^{2}}\operatorname{+}\left( {e_1}\ensuremath{\mathrm{ . }}{e_3}\right)  a b \cos{(t)}\operatorname{+}\left( {e_2}\ensuremath{\mathrm{ . }}{e_3}\right)  a b \sin{(t)}}{{{\left( {{a}^{2}}\operatorname{+}{{b}^{2}}\right) }^{\frac{3}{2}}}}\right) \]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i30)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_variable">%iv</span>
+            <span class="code_endofline">|</span>
+            <span class="code_variable">B</span>
+            <span class="code_operator">+</span>
+            <span class="code_variable">Omega</span>
+            <span class="code_operator">/</span>
+            <span class="code_variable">a</span>
+            <span class="code_operator">*</span>
+            <span class="code_variable">L</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{	}\frac{\left( {e_1}\ensuremath{\mathrm{ . }}{e_2}\right)  a}{\sqrt{{{a}^{2}}\operatorname{+}{{b}^{2}}}}\operatorname{+}\frac{\left( {e_1}\ensuremath{\mathrm{ . }}{e_3}\right)  b \cos{(t)}}{\sqrt{{{a}^{2}}\operatorname{+}{{b}^{2}}}}\operatorname{+}\frac{\left( {e_2}\ensuremath{\mathrm{ . }}{e_3}\right)  b \sin{(t)}}{\sqrt{{{a}^{2}}\operatorname{+}{{b}^{2}}}}\operatorname{-}\frac{\left( {e_1}\ensuremath{\mathrm{ . }}{e_2}\right)  {{a}^{2}}\operatorname{+}\left( {e_1}\ensuremath{\mathrm{ . }}{e_3}\right)  a b \cos{(t)}\operatorname{+}\left( {e_2}\ensuremath{\mathrm{ . }}{e_3}\right)  a b \sin{(t)}}{a \sqrt{{{a}^{2}}\operatorname{+}{{b}^{2}}}}\]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i31)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_variable">%</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">ratsimp</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{	}0\]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i32)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_variable">B</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{	}\frac{{e_3} a}{\sqrt{{{a}^{2}}\operatorname{+}{{b}^{2}}}}\operatorname{-}\frac{{e_2} b \cos{(t)}}{\sqrt{{{a}^{2}}\operatorname{+}{{b}^{2}}}}\operatorname{+}\frac{{e_1} b \sin{(t)}}{\sqrt{{{a}^{2}}\operatorname{+}{{b}^{2}}}}\]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i33)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_variable">T</span>
+            <span class="code_endofline">&amp;</span>
+            <span class="code_variable">dT</span>
+            <span class="code_endofline">&amp;</span>
+            <span class="code_function">diff</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">dT</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">t</span>
+            <span class="code_operator">)</span>
+            <span class="code_operator">/</span>
+            <span class="code_function">sqrt</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">L</span>
+            <span class="code_operator">)</span>
+            <span class="code_operator">^</span>
+            <span class="code_number">3</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{	}\frac{\left( {e_1}\ensuremath{\mathrm{ . }}{e_2}\ensuremath{\mathrm{ . }}{e_3}\right)  {{a}^{2}} b {{\cos{(t)}}^{2}}}{{{a}^{6}}\operatorname{+}3 {{a}^{4}} {{b}^{2}}\operatorname{+}3 {{a}^{2}} {{b}^{4}}\operatorname{+}{{b}^{6}}}\operatorname{+}\frac{\left( {e_1}\ensuremath{\mathrm{ . }}{e_2}\ensuremath{\mathrm{ . }}{e_3}\right)  {{a}^{2}} b {{\sin{(t)}}^{2}}}{{{a}^{6}}\operatorname{+}3 {{a}^{4}} {{b}^{2}}\operatorname{+}3 {{a}^{2}} {{b}^{4}}\operatorname{+}{{b}^{6}}}\]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i34)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_variable">%</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">trigsimp</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{	}\frac{\left( {e_1}\ensuremath{\mathrm{ . }}{e_2}\ensuremath{\mathrm{ . }}{e_3}\right)  {{a}^{2}} b}{{{a}^{6}}\operatorname{+}3 {{a}^{4}} {{b}^{2}}\operatorname{+}3 {{a}^{2}} {{b}^{4}}\operatorname{+}{{b}^{6}}}\]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i35)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_variable">%</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">factor</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{	}\frac{\left( {e_1}\ensuremath{\mathrm{ . }}{e_2}\ensuremath{\mathrm{ . }}{e_3}\right)  {{a}^{2}} b}{{{\left( {{a}^{2}}\operatorname{+}{{b}^{2}}\right) }^{3}}}\]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i36)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_variable">K</span>
+            <span class="code_operator">^</span>
+            <span class="code_number">2</span>
+            <span class="code_operator">*</span>
+            <span class="code_variable">tau</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{	}\frac{{{a}^{2}} b}{{{\left( {{a}^{2}}\operatorname{+}{{b}^{2}}\right) }^{3}}}\]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i37)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_variable">H</span>
+            <span class="code_operator">:</span>
+            <span class="code_variable">K</span>
+            <span class="code_operator">^</span>
+            <span class="code_number">2</span>
+            <span class="code_operator">/</span>
+            <span class="code_number">2</span>
+            <span class="code_operator">-</span>
+            <span class="code_variable">tau</span>
+            <span class="code_operator">^</span>
+            <span class="code_number">2</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{(H)	}\frac{\frac{1}{2} {{a}^{2}}}{{{\left( {{a}^{2}}\operatorname{+}{{b}^{2}}\right) }^{2}}}\operatorname{-}\frac{{{b}^{2}}}{{{\left( {{a}^{2}}\operatorname{+}{{b}^{2}}\right) }^{2}}}\]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i38)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_variable">J2</span>
+            <span class="code_operator">:</span>
+            <span class="code_variable">tau</span>
+            <span class="code_operator">^</span>
+            <span class="code_number">4</span>
+            <span class="code_operator">+</span>
+            <span class="code_variable">K</span>
+            <span class="code_operator">^</span>
+            <span class="code_number">2</span>
+            <span class="code_operator">*</span>
+            <span class="code_variable">tau</span>
+            <span class="code_operator">^</span>
+            <span class="code_number">2</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">factor</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{(J2)	}\frac{{{b}^{2}}}{{{\left( {{a}^{2}}\operatorname{+}{{b}^{2}}\right) }^{3}}}\]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i39)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_variable">JJ</span>
+            <span class="code_operator">:</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">H</span>
+            <span class="code_operator">-</span>
+            <span class="code_variable">K</span>
+            <span class="code_operator">^</span>
+            <span class="code_number">2</span>
+            <span class="code_operator">/</span>
+            <span class="code_number">2</span>
+            <span class="code_operator">)</span>
+            <span class="code_operator">*</span>
+            <span class="code_variable">T</span>
+            <span class="code_operator">-</span>
+            <span class="code_variable">K</span>
+            <span class="code_operator">*</span>
+            <span class="code_variable">tau</span>
+            <span class="code_operator">*</span>
+            <span class="code_variable">B</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{(JJ)	}\operatorname{-}\left( \frac{{{b}^{2}} \left( {e_3} b\operatorname{+}{e_2} a \cos{(t)}\operatorname{-}{e_1} a \sin{(t)}\right) }{{{\left( {{a}^{2}}\operatorname{+}{{b}^{2}}\right) }^{\frac{5}{2}}}}\right) \operatorname{-}\frac{a b\, \left( \frac{{e_3} a}{\sqrt{{{a}^{2}}\operatorname{+}{{b}^{2}}}}\operatorname{-}\frac{{e_2} b \cos{(t)}}{\sqrt{{{a}^{2}}\operatorname{+}{{b}^{2}}}}\operatorname{+}\frac{{e_1} b \sin{(t)}}{\sqrt{{{a}^{2}}\operatorname{+}{{b}^{2}}}}\right) }{{{\left( {{a}^{2}}\operatorname{+}{{b}^{2}}\right) }^{2}}}\]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i40)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_function">cnorm</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">JJ</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">trigsimp</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{	}\operatorname{-}\left( \frac{{{b}^{2}}}{{{a}^{6}}\operatorname{+}3 {{a}^{4}} {{b}^{2}}\operatorname{+}3 {{a}^{2}} {{b}^{4}}\operatorname{+}{{b}^{6}}}\right) \]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i41)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_variable">%</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">factor</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{	}\operatorname{-}\left( \frac{{{b}^{2}}}{{{\left( {{a}^{2}}\operatorname{+}{{b}^{2}}\right) }^{3}}}\right) \]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i42)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_variable">JJ</span>
+            <span class="code_operator">:</span>
+            <span class="code_variable">JJ</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">ratsimp</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">factor</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{(JJ)	}\operatorname{-}\left( \frac{{e_3} b}{{{\left( {{a}^{2}}\operatorname{+}{{b}^{2}}\right) }^{\frac{3}{2}}}}\right) \]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i43)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_variable">tau</span>
+            <span class="code_operator">/</span>
+            <span class="code_function">sqrt</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">L</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{	}\frac{b}{{{\left( {{a}^{2}}\operatorname{+}{{b}^{2}}\right) }^{\frac{3}{2}}}}\]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i44)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_variable">Omega</span>
+            <span class="code_operator">/</span>
+            <span class="code_function">sqrt</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">L</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{	}\operatorname{-}\left( \frac{\left( {e_1}\ensuremath{\mathrm{ . }}{e_2}\right)  {{a}^{2}}\operatorname{+}\left( {e_1}\ensuremath{\mathrm{ . }}{e_3}\right)  a b \cos{(t)}\operatorname{+}\left( {e_2}\ensuremath{\mathrm{ . }}{e_3}\right)  a b \sin{(t)}}{{{\left( {{a}^{2}}\operatorname{+}{{b}^{2}}\right) }^{2}}}\right) \]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i45)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_variable">M</span>
+            <span class="code_operator">:</span>
+            <span class="code_variable">r</span>
+            <span class="code_endofline">&amp;</span>
+            <span class="code_variable">JJ</span>
+            <span class="code_operator">-</span>
+            <span class="code_variable">Omega</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{(M)	}\operatorname{-}\left( \frac{\left( {e_1}\ensuremath{\mathrm{ . }}{e_3}\right)  a b \cos{(t)}}{{{\left( {{a}^{2}}\operatorname{+}{{b}^{2}}\right) }^{\frac{3}{2}}}}\right) \operatorname{-}\frac{\left( {e_2}\ensuremath{\mathrm{ . }}{e_3}\right)  a b \sin{(t)}}{{{\left( {{a}^{2}}\operatorname{+}{{b}^{2}}\right) }^{\frac{3}{2}}}}\operatorname{+}\frac{\left( {e_1}\ensuremath{\mathrm{ . }}{e_2}\right)  {{a}^{2}}\operatorname{+}\left( {e_1}\ensuremath{\mathrm{ . }}{e_3}\right)  a b \cos{(t)}\operatorname{+}\left( {e_2}\ensuremath{\mathrm{ . }}{e_3}\right)  a b \sin{(t)}}{{{\left( {{a}^{2}}\operatorname{+}{{b}^{2}}\right) }^{\frac{3}{2}}}}\]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i46)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_variable">M</span>
+            <span class="code_operator">:</span>
+            <span class="code_variable">M</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">trigsimp</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{(M)	}\frac{\left( {e_1}\ensuremath{\mathrm{ . }}{e_2}\right)  {{a}^{2}}}{{{\left( {{a}^{2}}\operatorname{+}{{b}^{2}}\right) }^{\frac{3}{2}}}}\]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i47)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_variable">K</span>
+            <span class="code_operator">^</span>
+            <span class="code_number">2</span>
+            <span class="code_operator">*</span>
+            <span class="code_function">sqrt</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">L</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{	}\frac{{{a}^{2}}}{{{\left( {{a}^{2}}\operatorname{+}{{b}^{2}}\right) }^{\frac{3}{2}}}}\]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i48)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_variable">H</span>
+            <span class="code_operator">:</span>
+            <span class="code_number">1</span>
+            <span class="code_operator">/</span>
+            <span class="code_number">2</span>
+            <span class="code_operator">*</span>
+            <span class="code_variable">K</span>
+            <span class="code_operator">^</span>
+            <span class="code_number">2</span>
+            <span class="code_operator">-</span>
+            <span class="code_variable">tau</span>
+            <span class="code_operator">^</span>
+            <span class="code_number">2</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{(H)	}\frac{\frac{1}{2} {{a}^{2}}}{{{\left( {{a}^{2}}\operatorname{+}{{b}^{2}}\right) }^{2}}}\operatorname{-}\frac{{{b}^{2}}}{{{\left( {{a}^{2}}\operatorname{+}{{b}^{2}}\right) }^{2}}}\]
+</p>
+    <hr/>
+    <p>
+      <small> Created with 
+        <a href="https://wxMaxima-developers.github.io/wxmaxima/">wxMaxima</a>.</small>
+    </p>
+    <small> The source of this Maxima session can be downloaded 
+      <a href="helix2_htmlimg/helix2.wxmx">here</a>.</small>
+  </body>
+</html>

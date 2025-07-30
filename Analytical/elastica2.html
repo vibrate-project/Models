@@ -1,0 +1,1213 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>elastica2</title>
+    <meta name="generator" content="wxMaxima"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <script type="text/x-mathjax-config">  MathJax.Hub.Config({
+    displayAlign: "left",
+    context: "MathJax",
+    TeX: {TagSide: "left"}
+  })
+</script>
+    <script id="MathJax-script" type="application/javascript" async="true" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">  // A comment that hinders wxWidgets from optimizing this tag too much.
+</script>
+    <link rel="stylesheet" type="text/css" href="elastica2_htmlimg/elastica2.css"/>
+  </head>
+  <body>
+    <!-- ****************************************************** -->
+    <!-- *        Created with wxMaxima version 23.05.1       * -->
+    <!-- ****************************************************** -->
+    <noscript>
+      <div class="error message">
+        <p>Please enable JavaScript in order to get a 2d display of the equations embedded in this web page.</p>
+      </div>
+    </noscript>
+    <p hidden="hidden">\(      \DeclareMathOperator{\abs}{abs}
+      \newcommand{\ensuremath}[1]{\mbox{$#1$}}
+\)</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i1)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_function">load</span>
+            <span class="code_operator">(</span>
+            <span class="code_string">"clifford.mac"</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\]\[\mbox{}\\"package name: clifford.mac"" "
+\]\[\mbox{}\\"author: "" ""Dimiter Prodanov"" "
+\]\[\mbox{}\\"version:"" "\ensuremath{\mathrm{v25}}" "
+\]\[\mbox{}\\"Recommended location: share/contrib"" "
+\]\[\mbox{}\\"last update: 19 Jan 2025"" "\]
+</p>
+    <p>\[\operatorname{	}""C:/Users/dimit/Dropbox/maxima/clifford.mac""\]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i2)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_function">clifford</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">e</span>
+            <span class="code_endofline">,</span>
+            <span class="code_number">2</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{	}\left[ 1\operatorname{,}1\right] \]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i3)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_function">load</span>
+            <span class="code_operator">(</span>
+            <span class="code_string">"elliptic2.mac"</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\]\[\mbox{}\\\mbox{%default
+defmatch: }{{\sin{\left( \ensuremath{\mathrm{\% a}}\, \ensuremath{\mathrm{\% x}}\right) }}^{2}} \ensuremath{\mathrm{\% m}}\mbox{%default
+ will be matched uniquely since sub-parts would otherwise be ambiguous.
+}\]\[\mbox{}\\\mbox{%default
+defmatch: }\operatorname{-}\left( {{\operatorname{jacobi\_ sn}\left( \ensuremath{\mathrm{\% x}}\operatorname{,}\ensuremath{\mathrm{\% m}}\right) }^{2}} \ensuremath{\mathrm{\% n}} 1\right) \mbox{%default
+ will be matched uniquely since sub-parts would otherwise be ambiguous.}\]
+</p>
+    <p>\[\operatorname{	}""elliptic2.mac""\]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i4)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_function">declare</span>
+            <span class="code_operator">(</span>
+            <span class="code_operator">[</span>
+            <span class="code_variable">j</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">H</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">s</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">q</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">m</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">m_3</span>
+            <span class="code_operator">]</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">scalar</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{	}\ensuremath{\mathrm{done}}\]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i5)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_function">assume</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">j</span>
+            <span class="code_endofline">&gt;</span>
+            <span class="code_number">0</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">q</span>
+            <span class="code_endofline">&gt;</span>
+            <span class="code_number">0</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">m</span>
+            <span class="code_endofline">&gt;</span>
+            <span class="code_number">0</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{	}\left[ j\operatorname{&gt;  }0\operatorname{,}q\operatorname{&gt;  }0\operatorname{,}m\operatorname{&gt;  }0\right] \]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i6)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_variable">eq1</span>
+            <span class="code_operator">:</span>
+            <span class="code_variable">m_3</span>
+            <span class="code_operator">-</span>
+            <span class="code_number">2</span>
+            <span class="code_operator">*</span>
+            <span class="code_variable">q</span>
+            <span class="code_operator">*</span>
+            <span class="code_function">jacobi_dn</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">q</span>
+            <span class="code_operator">*</span>
+            <span class="code_variable">s</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">m</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">s</span>
+            <span class="code_operator">=</span>
+            <span class="code_number">0</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{(eq1)	}\ensuremath{\mathrm{m\_ 3}}\operatorname{-}2 q\]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i7)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_variable">sol1</span>
+            <span class="code_operator">:</span>
+            <span class="code_function">solve</span>
+            <span class="code_operator">(</span>
+            <span class="code_operator">(</span>
+            <span class="code_number">4</span>
+            <span class="code_operator">*</span>
+            <span class="code_variable">H</span>
+            <span class="code_operator">*</span>
+            <span class="code_variable">q</span>
+            <span class="code_operator">^</span>
+            <span class="code_number">2</span>
+            <span class="code_operator">+</span>
+            <span class="code_operator">(</span>
+            <span class="code_operator">-</span>
+            <span class="code_number">8</span>
+            <span class="code_operator">+</span>
+            <span class="code_number">4</span>
+            <span class="code_operator">*</span>
+            <span class="code_variable">m</span>
+            <span class="code_operator">)</span>
+            <span class="code_operator">*</span>
+            <span class="code_variable">q</span>
+            <span class="code_operator">^</span>
+            <span class="code_number">4</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">m</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">expand</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{(sol1)	}\left[ m\operatorname{=}2\operatorname{-}\frac{H}{{{q}^{2}}}\right] \]
+</p>
+    <!-- Text cell -->
+    <div class="comment">Elastica field
+</div>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i8)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_variable">G</span>
+            <span class="code_operator">:</span>
+            <span class="code_function">lvect</span>
+            <span class="code_operator">(</span>
+            <span class="code_operator">[</span>
+            <span class="code_variable">m_3</span>
+            <span class="code_operator">-</span>
+            <span class="code_number">2</span>
+            <span class="code_operator">*</span>
+            <span class="code_variable">q</span>
+            <span class="code_operator">*</span>
+            <span class="code_function">jacobi_dn</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">q</span>
+            <span class="code_operator">*</span>
+            <span class="code_variable">s</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">m</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">H</span>
+            <span class="code_operator">*</span>
+            <span class="code_variable">s</span>
+            <span class="code_operator">-</span>
+            <span class="code_number">2</span>
+            <span class="code_operator">*</span>
+            <span class="code_variable">q</span>
+            <span class="code_operator">*</span>
+            <span class="code_function">E</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">q</span>
+            <span class="code_operator">*</span>
+            <span class="code_variable">s</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">m</span>
+            <span class="code_operator">)</span>
+            <span class="code_operator">]</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">,</span>
+            <span class="code_operator">[</span>
+            <span class="code_variable">m</span>
+            <span class="code_operator">=</span>
+            <span class="code_operator">(</span>
+            <span class="code_operator">-</span>
+            <span class="code_variable">H</span>
+            <span class="code_operator">+</span>
+            <span class="code_number">2</span>
+            <span class="code_operator">*</span>
+            <span class="code_variable">q</span>
+            <span class="code_operator">^</span>
+            <span class="code_number">2</span>
+            <span class="code_operator">)</span>
+            <span class="code_operator">/</span>
+            <span class="code_variable">q</span>
+            <span class="code_operator">^</span>
+            <span class="code_number">2</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">m_3</span>
+            <span class="code_operator">=</span>
+            <span class="code_number">2</span>
+            <span class="code_operator">*</span>
+            <span class="code_variable">q</span>
+            <span class="code_operator">]</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{(G)	}{e_2} \left( H s\operatorname{-}2 q \operatorname{E}\left( q s\operatorname{,}\frac{\operatorname{-}H\operatorname{+}2 {{q}^{2}}}{{{q}^{2}}}\right) \right) \operatorname{+}{e_1} \left( 2 q\operatorname{-}2 q \operatorname{jacobi\_ dn}\left( q s\operatorname{,}\frac{\operatorname{-}H\operatorname{+}2 {{q}^{2}}}{{{q}^{2}}}\right) \right) \]
+</p>
+    <!-- Text cell -->
+    <div class="comment">Tangent field
+</div>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i9)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_variable">T</span>
+            <span class="code_operator">:</span>
+            <span class="code_function">diff</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">G</span>
+            <span class="code_operator">/</span>
+            <span class="code_variable">j</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">s</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{(T)	}\frac{{e_2} \left( H\operatorname{-}2 {{q}^{2}} {{\operatorname{jacobi\_ dn}\left( q s\operatorname{,}\frac{\operatorname{-}H\operatorname{+}2 {{q}^{2}}}{{{q}^{2}}}\right) }^{2}}\right) \operatorname{+}2 {e_1} \left( \operatorname{-}H\operatorname{+}2 {{q}^{2}}\right)  \operatorname{jacobi\_ cn}\left( q s\operatorname{,}\frac{\operatorname{-}H\operatorname{+}2 {{q}^{2}}}{{{q}^{2}}}\right)  \operatorname{jacobi\_ sn}\left( q s\operatorname{,}\frac{\operatorname{-}H\operatorname{+}2 {{q}^{2}}}{{{q}^{2}}}\right) }{j}\]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i10)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_variable">N2</span>
+            <span class="code_operator">:</span>
+            <span class="code_operator">-</span>
+            <span class="code_function">cnorm</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">T</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{(N2)	}\]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i11)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_variable">N21</span>
+            <span class="code_operator">:</span>
+            <span class="code_function">apply1</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">N2</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">cnsimp4</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">snsimp6</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{(N21)	}\]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i12)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_variable">N21</span>
+            <span class="code_operator">:</span>
+            <span class="code_variable">N21</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">ratsimp</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{(N21)	}\frac{{{H}^{2}}\operatorname{-}4 H {{q}^{2}}\operatorname{+}4 {{q}^{4}}}{{{j}^{2}}}\]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i13)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_variable">N21</span>
+            <span class="code_operator">:</span>
+            <span class="code_variable">N21</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">factor</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{(N21)	}\frac{{{\left( \operatorname{-}H\operatorname{+}2 {{q}^{2}}\right) }^{2}}}{{{j}^{2}}}\]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i14)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_variable">T1</span>
+            <span class="code_operator">:</span>
+            <span class="code_variable">T</span>
+            <span class="code_operator">/</span>
+            <span class="code_function">sqrt</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">N21</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{(T1)	}\frac{{e_2} \left( H\operatorname{-}2 {{q}^{2}} {{\operatorname{jacobi\_ dn}\left( q s\operatorname{,}\frac{\operatorname{-}H\operatorname{+}2 {{q}^{2}}}{{{q}^{2}}}\right) }^{2}}\right) \operatorname{+}2 {e_1} \left( \operatorname{-}H\operatorname{+}2 {{q}^{2}}\right)  \operatorname{jacobi\_ cn}\left( q s\operatorname{,}\frac{\operatorname{-}H\operatorname{+}2 {{q}^{2}}}{{{q}^{2}}}\right)  \operatorname{jacobi\_ sn}\left( q s\operatorname{,}\frac{\operatorname{-}H\operatorname{+}2 {{q}^{2}}}{{{q}^{2}}}\right) }{\left| \operatorname{-}H\operatorname{+}2 {{q}^{2}}\right| }\]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i15)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_operator">-</span>
+            <span class="code_function">cnorm</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">T1</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{	}\]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i16)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_function">apply1</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">%</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">cnsimp4</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">snsimp6</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{	}\]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i17)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_variable">%</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">ratsimp</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{	}1\]
+</p>
+    <!-- Text cell -->
+    <div class="comment">Normal field
+</div>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i18)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_variable">dT</span>
+            <span class="code_operator">:</span>
+            <span class="code_function">diff</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">T1</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">s</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{(dT)	}\]
+</p>
+    <!-- Text cell -->
+    <div class="comment">Pseudoscalar -  Bishop frame
+</div>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i19)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_variable">W</span>
+            <span class="code_operator">:</span>
+            <span class="code_variable">T1</span>
+            <span class="code_endofline">&amp;</span>
+            <span class="code_variable">dT</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">clifact</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{(W)	}\operatorname{-}\]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i20)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_variable">W1</span>
+            <span class="code_operator">:</span>
+            <span class="code_function">apply1</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">W</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">cnsimp4</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">snsimp6</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{(W1)	}\operatorname{-}\]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i21)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_variable">W1</span>
+            <span class="code_operator">:</span>
+            <span class="code_variable">W1</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">ratsimp</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">clifact</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{(W1)	}2 \left( {e_1}\ensuremath{\mathrm{ . }}{e_2}\right)  q \operatorname{jacobi\_ dn}\left( q s\operatorname{,}\frac{\operatorname{-}H\operatorname{+}2 {{q}^{2}}}{{{q}^{2}}}\right) \]
+</p>
+    <!-- Text cell -->
+    <div class="comment">curvature
+</div>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i22)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_variable">K</span>
+            <span class="code_operator">:</span>
+            <span class="code_function">coeff</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">W1</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">%iv</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{(K)	}2 q \operatorname{jacobi\_ dn}\left( q s\operatorname{,}\frac{\operatorname{-}H\operatorname{+}2 {{q}^{2}}}{{{q}^{2}}}\right) \]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i23)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_variable">dT1</span>
+            <span class="code_operator">:</span>
+            <span class="code_function">apply1</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">dT</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">cnsimp4</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">snsimp6</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{(dT1)	}\]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i24)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_variable">dT1</span>
+            <span class="code_operator">:</span>
+            <span class="code_variable">dT1</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">ratsimp</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">clifact</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{(dT1)	}\]
+</p>
+    <!-- Text cell -->
+    <div class="comment">checking the curvature
+</div>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i25)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_operator">-</span>
+            <span class="code_function">cnorm</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">dT</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{	}4 {{q}^{2}} {{\operatorname{jacobi\_ cn}\left( q s\operatorname{,}\frac{\operatorname{-}H\operatorname{+}2 {{q}^{2}}}{{{q}^{2}}}\right) }^{4}} {{\operatorname{jacobi\_ dn}\left( q s\operatorname{,}\frac{\operatorname{-}H\operatorname{+}2 {{q}^{2}}}{{{q}^{2}}}\right) }^{2}}\operatorname{+}8 {{q}^{2}} {{\operatorname{jacobi\_ cn}\left( q s\operatorname{,}\frac{\operatorname{-}H\operatorname{+}2 {{q}^{2}}}{{{q}^{2}}}\right) }^{2}} {{\operatorname{jacobi\_ dn}\left( q s\operatorname{,}\frac{\operatorname{-}H\operatorname{+}2 {{q}^{2}}}{{{q}^{2}}}\right) }^{2}} {{\operatorname{jacobi\_ sn}\left( q s\operatorname{,}\frac{\operatorname{-}H\operatorname{+}2 {{q}^{2}}}{{{q}^{2}}}\right) }^{2}}\operatorname{+}4 {{q}^{2}} {{\operatorname{jacobi\_ dn}\left( q s\operatorname{,}\frac{\operatorname{-}H\operatorname{+}2 {{q}^{2}}}{{{q}^{2}}}\right) }^{2}} {{\operatorname{jacobi\_ sn}\left( q s\operatorname{,}\frac{\operatorname{-}H\operatorname{+}2 {{q}^{2}}}{{{q}^{2}}}\right) }^{4}}\]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i26)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_variable">%</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">factor</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{	}4 {{q}^{2}} {{\operatorname{jacobi\_ dn}\left( q s\operatorname{,}\frac{\operatorname{-}H\operatorname{+}2 {{q}^{2}}}{{{q}^{2}}}\right) }^{2}} {{\left( {{\operatorname{jacobi\_ cn}\left( q s\operatorname{,}\frac{\operatorname{-}H\operatorname{+}2 {{q}^{2}}}{{{q}^{2}}}\right) }^{2}}\operatorname{+}{{\operatorname{jacobi\_ sn}\left( q s\operatorname{,}\frac{\operatorname{-}H\operatorname{+}2 {{q}^{2}}}{{{q}^{2}}}\right) }^{2}}\right) }^{2}}\]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i27)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_function">apply1</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">%</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">cnsimp4</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{	}4 {{q}^{2}} {{\operatorname{jacobi\_ dn}\left( q s\operatorname{,}\frac{\operatorname{-}H\operatorname{+}2 {{q}^{2}}}{{{q}^{2}}}\right) }^{2}}\]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i28)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_variable">dK</span>
+            <span class="code_operator">:</span>
+            <span class="code_function">diff</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">K</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">s</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{(dK)	}\operatorname{-}\left( 2 \left( \operatorname{-}H\operatorname{+}2 {{q}^{2}}\right)  \operatorname{jacobi\_ cn}\left( q s\operatorname{,}\frac{\operatorname{-}H\operatorname{+}2 {{q}^{2}}}{{{q}^{2}}}\right)  \operatorname{jacobi\_ sn}\left( q s\operatorname{,}\frac{\operatorname{-}H\operatorname{+}2 {{q}^{2}}}{{{q}^{2}}}\right) \right) \]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i29)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_variable">T1</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{	}\frac{{e_2} \left( H\operatorname{-}2 {{q}^{2}} {{\operatorname{jacobi\_ dn}\left( q s\operatorname{,}\frac{\operatorname{-}H\operatorname{+}2 {{q}^{2}}}{{{q}^{2}}}\right) }^{2}}\right) \operatorname{+}2 {e_1} \left( \operatorname{-}H\operatorname{+}2 {{q}^{2}}\right)  \operatorname{jacobi\_ cn}\left( q s\operatorname{,}\frac{\operatorname{-}H\operatorname{+}2 {{q}^{2}}}{{{q}^{2}}}\right)  \operatorname{jacobi\_ sn}\left( q s\operatorname{,}\frac{\operatorname{-}H\operatorname{+}2 {{q}^{2}}}{{{q}^{2}}}\right) }{\left| \operatorname{-}H\operatorname{+}2 {{q}^{2}}\right| }\]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i30)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_variable">dT1</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{	}\]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i31)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_variable">K</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{	}2 q \operatorname{jacobi\_ dn}\left( q s\operatorname{,}\frac{\operatorname{-}H\operatorname{+}2 {{q}^{2}}}{{{q}^{2}}}\right) \]
+</p>
+    <!-- Text cell -->
+    <div class="comment">Momentum vector
+</div>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i32)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_variable">J</span>
+            <span class="code_operator">:</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">H</span>
+            <span class="code_operator">-</span>
+            <span class="code_number">1</span>
+            <span class="code_operator">/</span>
+            <span class="code_number">2</span>
+            <span class="code_operator">*</span>
+            <span class="code_variable">K</span>
+            <span class="code_operator">^</span>
+            <span class="code_number">2</span>
+            <span class="code_operator">)</span>
+            <span class="code_operator">*</span>
+            <span class="code_variable">T1</span>
+            <span class="code_operator">+</span>
+            <span class="code_variable">dK</span>
+            <span class="code_operator">*</span>
+            <span class="code_variable">%iv</span>
+            <span class="code_endofline">|</span>
+            <span class="code_variable">T1</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{(J)	}\frac{2 {e_1} {{H}^{2}} \operatorname{jacobi\_ cn}\left( q s\operatorname{,}\frac{\operatorname{-}H\operatorname{+}2 {{q}^{2}}}{{{q}^{2}}}\right)  \operatorname{jacobi\_ sn}\left( q s\operatorname{,}\frac{\operatorname{-}H\operatorname{+}2 {{q}^{2}}}{{{q}^{2}}}\right) }{\left| \operatorname{-}H\operatorname{+}2 {{q}^{2}}\right| }\operatorname{-}\frac{4 {e_1} H {{q}^{2}} \operatorname{jacobi\_ cn}\left( q s\operatorname{,}\frac{\operatorname{-}H\operatorname{+}2 {{q}^{2}}}{{{q}^{2}}}\right)  \operatorname{jacobi\_ sn}\left( q s\operatorname{,}\frac{\operatorname{-}H\operatorname{+}2 {{q}^{2}}}{{{q}^{2}}}\right) }{\left| \operatorname{-}H\operatorname{+}2 {{q}^{2}}\right| }\operatorname{-}\frac{4 {e_1} H {{q}^{2}} \operatorname{jacobi\_ cn}\left( q s\operatorname{,}\frac{\operatorname{-}H\operatorname{+}2 {{q}^{2}}}{{{q}^{2}}}\right)  {{\operatorname{jacobi\_ dn}\left( q s\operatorname{,}\frac{\operatorname{-}H\operatorname{+}2 {{q}^{2}}}{{{q}^{2}}}\right) }^{2}} \operatorname{jacobi\_ sn}\left( q s\operatorname{,}\frac{\operatorname{-}H\operatorname{+}2 {{q}^{2}}}{{{q}^{2}}}\right) }{\left| \operatorname{-}H\operatorname{+}2 {{q}^{2}}\right| }\operatorname{+}\frac{8 {e_1} {{q}^{4}} \operatorname{jacobi\_ cn}\left( q s\operatorname{,}\frac{\operatorname{-}H\operatorname{+}2 {{q}^{2}}}{{{q}^{2}}}\right)  {{\operatorname{jacobi\_ dn}\left( q s\operatorname{,}\frac{\operatorname{-}H\operatorname{+}2 {{q}^{2}}}{{{q}^{2}}}\right) }^{2}} \operatorname{jacobi\_ sn}\left( q s\operatorname{,}\frac{\operatorname{-}H\operatorname{+}2 {{q}^{2}}}{{{q}^{2}}}\right) }{\left| \operatorname{-}H\operatorname{+}2 {{q}^{2}}\right| }\operatorname{+}\operatorname{(}\left( H\operatorname{-}2 {{q}^{2}} {{\operatorname{jacobi\_ dn}\left( q s\operatorname{,}\frac{\operatorname{-}H\operatorname{+}2 {{q}^{2}}}{{{q}^{2}}}\right) }^{2}}\right)  \operatorname{(}{e_2} \left( H\operatorname{-}2 {{q}^{2}} {{\operatorname{jacobi\_ dn}\left( q s\operatorname{,}\frac{\operatorname{-}H\operatorname{+}2 {{q}^{2}}}{{{q}^{2}}}\right) }^{2}}\right) \operatorname{+}2 {e_1} \left( \operatorname{-}H\operatorname{+}2 {{q}^{2}}\right)  \operatorname{jacobi\_ cn}\left( q s\operatorname{,}\frac{\operatorname{-}H\operatorname{+}2 {{q}^{2}}}{{{q}^{2}}}\right)  \operatorname{jacobi\_ sn}\left( q s\operatorname{,}\frac{\operatorname{-}H\operatorname{+}2 {{q}^{2}}}{{{q}^{2}}}\right) \operatorname{)}\operatorname{)}/\left| \operatorname{-}H\operatorname{+}2 {{q}^{2}}\right| \operatorname{+}\frac{4 {e_2} {{H}^{2}} {{\operatorname{jacobi\_ cn}\left( q s\operatorname{,}\frac{\operatorname{-}H\operatorname{+}2 {{q}^{2}}}{{{q}^{2}}}\right) }^{2}} {{\operatorname{jacobi\_ sn}\left( q s\operatorname{,}\frac{\operatorname{-}H\operatorname{+}2 {{q}^{2}}}{{{q}^{2}}}\right) }^{2}}}{\left| \operatorname{-}H\operatorname{+}2 {{q}^{2}}\right| }\operatorname{-}\frac{16 {e_2} H {{q}^{2}} {{\operatorname{jacobi\_ cn}\left( q s\operatorname{,}\frac{\operatorname{-}H\operatorname{+}2 {{q}^{2}}}{{{q}^{2}}}\right) }^{2}} {{\operatorname{jacobi\_ sn}\left( q s\operatorname{,}\frac{\operatorname{-}H\operatorname{+}2 {{q}^{2}}}{{{q}^{2}}}\right) }^{2}}}{\left| \operatorname{-}H\operatorname{+}2 {{q}^{2}}\right| }\operatorname{+}\frac{16 {e_2} {{q}^{4}} {{\operatorname{jacobi\_ cn}\left( q s\operatorname{,}\frac{\operatorname{-}H\operatorname{+}2 {{q}^{2}}}{{{q}^{2}}}\right) }^{2}} {{\operatorname{jacobi\_ sn}\left( q s\operatorname{,}\frac{\operatorname{-}H\operatorname{+}2 {{q}^{2}}}{{{q}^{2}}}\right) }^{2}}}{\left| \operatorname{-}H\operatorname{+}2 {{q}^{2}}\right| }\]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i33)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_variable">J</span>
+            <span class="code_operator">:</span>
+            <span class="code_variable">J</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">clifact</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{(J)	}\]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i34)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_variable">J1</span>
+            <span class="code_operator">:</span>
+            <span class="code_function">apply1</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">J</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">cnsimp4</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">snsimp6</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{(J1)	}\]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i35)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_variable">J1</span>
+            <span class="code_operator">:</span>
+            <span class="code_variable">J1</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">clifact</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{(J1)	}\frac{{e_2} \left( {{H}^{2}}\operatorname{-}4 H {{q}^{2}}\operatorname{+}4 {{q}^{4}}\right) }{\left| \operatorname{-}H\operatorname{+}2 {{q}^{2}}\right| }\]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i36)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_variable">%</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">factor</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{	}{e_2} \left| \operatorname{-}H\operatorname{+}2 {{q}^{2}}\right| \]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i37)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_operator">[</span>
+            <span class="code_variable">m</span>
+            <span class="code_operator">=</span>
+            <span class="code_number">2</span>
+            <span class="code_operator">-</span>
+            <span class="code_variable">H</span>
+            <span class="code_operator">/</span>
+            <span class="code_variable">q</span>
+            <span class="code_operator">^</span>
+            <span class="code_number">2</span>
+            <span class="code_operator">]</span>
+            <span class="code_operator">*</span>
+            <span class="code_variable">q</span>
+            <span class="code_operator">^</span>
+            <span class="code_number">2</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">expand</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{	}\left[ m {{q}^{2}}\operatorname{=}\operatorname{-}H\operatorname{+}2 {{q}^{2}}\right] \]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i38)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_function">jacobi_dn</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">s</span>
+            <span class="code_operator">*</span>
+            <span class="code_variable">q</span>
+            <span class="code_endofline">,</span>
+            <span class="code_number">0</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{	}1\]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i39)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_function">jacobi_dn</span>
+            <span class="code_operator">(</span>
+            <span class="code_number">0</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">m</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{	}1\]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i40)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_variable">eqh</span>
+            <span class="code_operator">:</span>
+            <span class="code_function">solve</span>
+            <span class="code_operator">(</span>
+            <span class="code_operator">(</span>
+            <span class="code_number">4</span>
+            <span class="code_operator">*</span>
+            <span class="code_variable">H</span>
+            <span class="code_operator">*</span>
+            <span class="code_variable">q</span>
+            <span class="code_operator">^</span>
+            <span class="code_number">2</span>
+            <span class="code_operator">+</span>
+            <span class="code_operator">(</span>
+            <span class="code_operator">-</span>
+            <span class="code_number">8</span>
+            <span class="code_operator">+</span>
+            <span class="code_number">4</span>
+            <span class="code_operator">*</span>
+            <span class="code_variable">m</span>
+            <span class="code_operator">)</span>
+            <span class="code_operator">*</span>
+            <span class="code_variable">q</span>
+            <span class="code_operator">^</span>
+            <span class="code_number">4</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">H</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">expand</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{(eqh)	}\left[ H\operatorname{=}2 {{q}^{2}}\operatorname{-}m {{q}^{2}}\right] \]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i41)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_variable">G</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">eqh</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{	}{e_2} \left( \left( 2 {{q}^{2}}\operatorname{-}m {{q}^{2}}\right)  s\operatorname{-}2 q \operatorname{E}\left( q s\operatorname{,}m\right) \right) \operatorname{+}{e_1} \left( 2 q\operatorname{-}2 q \operatorname{jacobi\_ dn}\left( q s\operatorname{,}m\right) \right) \]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i42)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_variable">T1</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">eqh</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{	}\frac{{e_2} \left( 2 {{q}^{2}}\operatorname{-}m {{q}^{2}}\operatorname{-}2 {{q}^{2}} {{\operatorname{jacobi\_ dn}\left( q s\operatorname{,}m\right) }^{2}}\right) \operatorname{+}2 {e_1} m {{q}^{2}} \operatorname{jacobi\_ cn}\left( q s\operatorname{,}m\right)  \operatorname{jacobi\_ sn}\left( q s\operatorname{,}m\right) }{m {{q}^{2}}}\]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i43)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_function">multthru</span>
+            <span class="code_operator">(</span>
+            <span class="code_variable">%</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{	}\frac{{e_2} \left( 2 {{q}^{2}}\operatorname{-}m {{q}^{2}}\operatorname{-}2 {{q}^{2}} {{\operatorname{jacobi\_ dn}\left( q s\operatorname{,}m\right) }^{2}}\right) }{m {{q}^{2}}}\operatorname{+}2 {e_1} \operatorname{jacobi\_ cn}\left( q s\operatorname{,}m\right)  \operatorname{jacobi\_ sn}\left( q s\operatorname{,}m\right) \]
+</p>
+    <!-- Code cell -->
+    <table>
+      <tr>
+        <td>
+          <span class="prompt">(%i44)	
+  </span>
+        </td>
+        <td>
+          <span class="input">
+            <span class="code_variable">e</span>
+            <span class="code_operator">[</span>
+            <span class="code_number">2</span>
+            <span class="code_operator">]</span>
+            <span class="code_operator">*</span>
+            <span class="code_function">abs</span>
+            <span class="code_operator">(</span>
+            <span class="code_operator">-</span>
+            <span class="code_variable">H</span>
+            <span class="code_operator">+</span>
+            <span class="code_number">2</span>
+            <span class="code_operator">*</span>
+            <span class="code_variable">q</span>
+            <span class="code_operator">^</span>
+            <span class="code_number">2</span>
+            <span class="code_operator">)</span>
+            <span class="code_endofline">,</span>
+            <span class="code_variable">eqh</span>
+            <span class="code_endofline">;</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <p>\[\operatorname{	}{e_2} m {{q}^{2}}\]
+</p>
+    <hr/>
+    <p>
+      <small> Created with 
+        <a href="https://wxMaxima-developers.github.io/wxmaxima/">wxMaxima</a>.</small>
+    </p>
+    <small> The source of this Maxima session can be downloaded 
+      <a href="elastica2_htmlimg/elastica2.wxmx">here</a>.</small>
+  </body>
+</html>
