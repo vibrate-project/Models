@@ -1,0 +1,156 @@
+
+/**
+Elliptic integral tools
+
+(c) 2024 - 2025 Dimiter Prodanov
+*/
+
+/**
+patterns
+*/
+
+
+matchdeclare([%x], atom, [%b, %m, %a, %n], true);
+
+defmatch ( elint1, %b/sqrt(%n+%m*sin(%a*%x)^2), %x);
+
+defmatch ( elint2, %b/sqrt(%n+%m*cos(2*%x)), %x);
+
+defmatch ( elint3, %b/ (%a-%n*jacobi_sn(%x, %m)^2), %x);
+
+
+matchdeclare([%ker, %rr], true);
+
+simp : false;
+
+defmatch (checklimits, %rr*'integrate (%ker, %x, %a, %b));
+defmatch (checklimits1, %rr*'integrate (%ker, %x ));
+
+simp:true;
+
+
+
+defrule( snsimp1, %rr*sqrt(1-%m*jacobi_sn(%a,%m)^2), %rr*jacobi_dn(%a, %m) );
+
+defrule( snsimp2, 1/sqrt(1-%m*jacobi_sn(%a,%m)^2), 1/jacobi_dn(%a, %m) );
+
+defrule( snsimp3, sqrt(1-jacobi_sn(%a,%m)^2), jacobi_cn(%a, %m) );
+
+defrule( snsimp4, 1/sqrt(1-jacobi_sn(%a,%m)^2), 1/jacobi_cn(%a, %m) );
+
+defrule( snsimp5, jacobi_sn(%a,%m)^2, 1 - jacobi_cn(%a,%m)^2);
+
+defrule( snsimp6, jacobi_sn(%a,%m)^2, (1 - jacobi_dn(%a,%m)^2)/ %m);
+
+defrule( cnsimp1, sqrt(1-jacobi_cn(%a,%m)^2), jacobi_sn(%a, %m) );
+
+defrule( cnsimp4, jacobi_cn(%a,%m)^2, 1 - jacobi_sn(%a,%m)^2);
+
+defrule( cnsimp41, jacobi_cn(%a,%m)^4, (1 - jacobi_sn(%a,%m)^2)^2);
+
+defrule( dnsimp1, jacobi_dn(%a,%m)^2,  (1-%m*jacobi_sn(%a,%m)^2)  );
+
+defrule( dnsimp12, jacobi_dn(%a,%m)^4,  (1-%m*jacobi_sn(%a,%m)^2)^2  );
+
+defrule( dnsimp11, jacobi_dn(%a,%m),  sqrt(1-%m*jacobi_sn(%a,%m)^2)  );
+
+defrule( simpsn5, jacobi_sn(%a, 1/%m), sqrt(%m)*jacobi_sn(sqrt(%m)*%a, %m) );
+
+defrule( simpcn5, jacobi_cn(%a, 1/%m), jacobi_dn(sqrt(%m)*%a, %m) );
+
+defrule( simpdn5, jacobi_dn(%a, 1/%m), jacobi_cn(sqrt(%m)*%a, %m) );
+
+
+defrule(repsn, jacobi_sn(%a, %m), sin (am(%a, %m) ));
+
+defrule(repcn, jacobi_cn(%a, %m), cos (am(%a, %m) ));
+
+defrule(amsimp1, asin(jacobi_sn( %a, %m )), am (%a, %m));
+
+
+defrule(sin2sn, sin (am(%a, %m) ), jacobi_sn(%a, %m));
+
+defrule(cos2cn, cos (am(%a, %m) ), jacobi_cn(%a, %m));
+
+/*
+symbolics
+*/
+
+gradef(E(x, m), jacobi_dn(x,m)^2 );
+atvalue(E(x, m), [x=0], 0);
+atvalue(E(x, m), [m=1], sinh(x)/cosh(x));
+atvalue(E(x, m), [m=0], x);
+
+gradef(am(x, m), jacobi_dn(x,m) );
+atvalue(am(x, m), [x=0], 0);
+
+/* matches a kernel */
+elintker(ker, xx):=block([%b, %m, %a, %x, %n ], 
+	ker:expand(ker), elint1(ker, xx),  
+	%b/sqrt(%n)*(elliptic_f (%a*xx, -%m/%n))/%a 
+);
+
+elintker1(ker, xx):=block([%b, %m, %a, %x, %n ], 
+    ker:expand(ker), elint2(ker, xx), 
+    %b/sqrt(%n+%m)*(elliptic_f (xx, 2*%m/(%n+%m))) 
+);
+
+elintker3(ker, xx):=block([%b, %m, %a, %x, %n ], 
+    ker:expand(ker), elint3(ker, xx), 
+    %b/%a *(elliptic_pi  ( %n,  am(xx, %m), %m)) 
+);
+
+/* indefinite elliptic_f */ 
+elinti(expr, x):=block([ker, %x, %a, u, v ], 
+	ker: subst(nounify(integrate)=lambda([u,v], u), expr), 
+	elintker(ker,x)
+);
+
+elinti1(expr, x):=block([ker, %x, %a, u, v ], 
+	ker: subst(nounify(integrate)=lambda([u,v], u), expr), 
+	elintker1(ker,x)
+);
+
+elinti3(expr, x):=block([ker, %x, %a, u, v ], 
+	ker: subst(nounify(integrate)=lambda([u,v], u), expr), 
+	elintker3(ker,x)
+);
+ 
+ 
+/* matching an antiderivative and primitive */
+intmatch(iexpr, ader, x, [simpfun]):=block([%rr, %b, %a, %x, %ker, d1, d2  ], 
+	if checklimits(iexpr)=false 
+	then checklimits1(iexpr),
+	if _debug=true then
+			display(%rr, %b, %a, %x, %ker),
+	d1:diff(iexpr, x), 
+	d2:diff(%rr*ader, x),  
+	if not emptyp(simpfun) then (
+		simpfun:first(simpfun),
+		d1: apply( simpfun, [d1] ),
+		d2: apply( simpfun, [d2] )
+	),
+	if _debug=true then
+			display(d2, d1),
+	[%a, %b ]:divide(d2, d1), 
+	if _debug=true then
+		display(%a, %b), 
+	if %a#0 then
+		%rr/%a*ader - integrate(ratsimp(%b/%a),x)
+);
+
+intelipt2(iexpr, ader, x):= block ([u],
+	intmatch(iexpr, ader, x, lambda ([u], apply1 (u, dnsimp1,snsimp4)) )
+);
+
+intelipt3(iexpr, ader, x):= block ([u],
+    intmatch(iexpr, ader, x, lambda ([u], apply1 (u, dnsimp1,cnsimp4)) )
+);
+
+lstparams(expr, xx, lst):=block([u],
+ maplist(lambda([u], ratcoeff(expr, xx, u)),lst)
+);
+
+
+
+
